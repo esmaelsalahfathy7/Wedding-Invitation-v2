@@ -188,11 +188,11 @@ export default function LettersSection() {
         margin: "0 auto"
       }}>
         {letters.map((letter, idx) => (
-          <LetterCard 
-            key={letter.id} 
-            {...letter} 
-            delay={0.2 + idx * 0.2} 
-            onClick={() => setSelectedLetter(letter)} 
+          <LetterCard
+            key={letter.id}
+            {...letter}
+            delay={0.2 + idx * 0.2}
+            onClick={() => setSelectedLetter(letter)}
           />
         ))}
       </div>
@@ -223,7 +223,7 @@ export default function LettersSection() {
           >
             <motion.div
               initial={{ scale: 0.9, y: 50, opacity: 0 }}
-              animate={{ scale: 1, y: 0, opacity: 1 }}
+              animate={{ scale: 1, y: 0, opacity: 1, zIndex: 9999 }}
               exit={{ scale: 0.9, y: 20, opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 120 }}
               style={{
@@ -232,7 +232,7 @@ export default function LettersSection() {
                 maxWidth: "600px",
                 backgroundColor: "#FDFBF7",
                 borderRadius: "8px",
-                padding: "4rem 3rem",
+                padding: "2rem 2rem",
                 boxShadow: "0 30px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.2)",
                 display: "flex",
                 flexDirection: "column",
@@ -281,12 +281,12 @@ export default function LettersSection() {
               }}>
                 {selectedLetter.message}
               </p>
-              <span style={{ 
-                fontFamily: "var(--font-playfair)", 
-                color: "var(--wine-accent)", 
-                fontSize: "1.5rem", 
-                alignSelf: lang === "ar" ? "flex-start" : "flex-end", 
-                fontStyle: "italic" 
+              <span style={{
+                fontFamily: "var(--font-playfair)",
+                color: "var(--wine-accent)",
+                fontSize: "1.5rem",
+                alignSelf: lang === "ar" ? "flex-start" : "flex-end",
+                fontStyle: "italic"
               }}>
                 — {selectedLetter.senderName}
               </span>

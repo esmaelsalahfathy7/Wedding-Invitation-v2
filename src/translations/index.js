@@ -30,6 +30,15 @@ export const translations = {
     switchToTyped: "Switch to typed message",
     sending: "Sending...",
     sendMessage: "Send Message",
+    groomAccess: "Groom Access",
+    areYouGroom: "Are you the groom?",
+    enterPassword: "Enter Password",
+    incorrectPassword: "Incorrect password",
+    unlockMessages: "Unlock Messages",
+    lockMessages: "Lock",
+    lockedStateMsg: "Only the groom can view these messages.",
+    next: "Next",
+    prev: "Previous",
 
     // RSVP
     thankYou: "Thank You",
@@ -150,6 +159,15 @@ export const translations = {
     switchToTyped: "التبديل إلى رسالة مكتوبة",
     sending: "جاري الإرسال...",
     sendMessage: "إرسال الرسالة",
+    groomAccess: "دخول العريس",
+    areYouGroom: "هل أنت العريس؟",
+    enterPassword: "أدخل كلمة المرور",
+    incorrectPassword: "كلمة المرور غير صحيحة",
+    unlockMessages: "عرض الرسائل",
+    lockMessages: "قفل",
+    lockedStateMsg: "فقط العريس يمكنه رؤية هذه الرسائل.",
+    next: "التالي",
+    prev: "السابق",
 
     // RSVP
     thankYou: "شكراً لك",
