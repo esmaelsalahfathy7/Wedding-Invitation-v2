@@ -1,13 +1,21 @@
 :root {
-  --bg-dark: #050505;
-  --bg-darker: #000000;
-  --text-primary: #f0f0f0;
-  --text-secondary: #a0a0a0;
-  --gold-accent: #d4af37;
-  --gold-glow: rgba(212, 175, 55, 0.4);
-  --dark-charcoal: #121212;
-  --envelope-bg: #1a1a1a;
-  --card-bg: rgba(20, 20, 20, 0.8);
+  --bg-dark: #10071f;
+  --bg-darker: #0a0414;
+  --text-primary: #FDFBF7;
+  --text-secondary: #C8A99B;
+  --gold-accent: #C5A059;
+  --purple-glow: rgba(138, 43, 226, 0.2);
+  --wine-accent: #5C2533;
+  --ivory-highlight: rgba(253, 251, 247, 0.2);
+  --dark-charcoal: #150a2b;
+  --envelope-bg: #1a0f2e;
+  --card-bg: rgba(21, 10, 43, 0.6);
+}
+
+[dir="rtl"] {
+  --font-playfair: var(--font-amiri);
+  --font-inter: var(--font-cairo);
+  --font-handwriting: var(--font-amiri);
 }
 
 * {
@@ -42,15 +50,15 @@ a {
 }
 
 .gold-glow-text {
-  color: var(--gold-accent);
-  text-shadow: 0 0 10px var(--gold-glow);
+  color: var(--text-primary);
+  text-shadow: 0 0 10px var(--purple-glow);
 }
 
 .cinematic-glow {
   position: absolute;
   width: 300px;
   height: 300px;
-  background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--purple-glow) 0%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
   filter: blur(40px);
@@ -59,19 +67,19 @@ a {
 
 .glass-card {
   background: var(--card-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(253, 251, 247, 0.05);
   border-radius: 16px;
   padding: 2rem;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.6);
   position: relative;
   z-index: 1;
 }
 
 .input-dark {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(253, 251, 247, 0.03);
+  border: 1px solid rgba(253, 251, 247, 0.1);
   color: var(--text-primary);
   padding: 1rem;
   border-radius: 8px;
@@ -83,8 +91,8 @@ a {
 
 .input-dark:focus {
   outline: none;
-  border-color: var(--gold-accent);
-  box-shadow: 0 0 8px var(--gold-glow);
+  border-color: var(--wine-accent);
+  box-shadow: 0 0 8px var(--purple-glow);
 }
 
 .btn-gold {
@@ -104,8 +112,8 @@ a {
 }
 
 .btn-gold:hover {
-  background: var(--gold-glow);
-  box-shadow: 0 0 15px var(--gold-glow);
+  background: var(--wine-accent);
+  box-shadow: 0 0 15px var(--purple-glow);
   color: #fff;
 }
 
@@ -124,4 +132,48 @@ a {
   align-items: center;
   padding: 4rem 2rem;
   position: relative;
+}
+
+/* Timeline Responsive Layout */
+@media (max-width: 768px) {
+  .timeline-line {
+    left: 20px !important;
+    transform: none !important;
+  }
+  [dir="rtl"] .timeline-line {
+    left: auto !important;
+    right: 20px !important;
+  }
+  .timeline-dot {
+    left: 20px !important;
+    transform: translate(-50%, -50%) !important;
+  }
+  [dir="rtl"] .timeline-dot {
+    left: auto !important;
+    right: 20px !important;
+    transform: translate(50%, -50%) !important;
+  }
+  .timeline-event-row {
+    justify-content: flex-end !important;
+    padding: 2rem 0 2rem 3rem !important;
+  }
+  [dir="rtl"] .timeline-event-row {
+    justify-content: flex-start !important;
+    padding: 2rem 3rem 2rem 0 !important;
+  }
+  .timeline-card {
+    width: 100% !important;
+    margin: 0 !important;
+    text-align: left !important;
+    padding: 1.5rem !important;
+  }
+  [dir="rtl"] .timeline-card {
+    text-align: right !important;
+  }
+  .timeline-date {
+    text-align: left !important;
+  }
+  [dir="rtl"] .timeline-date {
+    text-align: right !important;
+  }
 }

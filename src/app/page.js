@@ -1,6 +1,11 @@
 "use client";
 import { useState } from "react";
 import EnvelopeExperience from "../components/EnvelopeExperience";
+import WelcomeSection from "../components/WelcomeSection";
+import LettersSection from "../components/LettersSection";
+import RomanticMaze from "../components/RomanticMaze";
+import Timeline from "../components/Timeline";
+import Gallery from "../components/Gallery";
 import Countdown from "../components/Countdown";
 import Location from "../components/Location";
 import GuestMessages from "../components/GuestMessages";
@@ -18,7 +23,7 @@ export default function Home() {
     <main style={{ minHeight: "100vh", position: "relative" }}>
       <LanguageSwitcher />
       <BackgroundSong />
-      <EnvelopeExperience onComplete={() => setIsOpened(true)} />
+      {!isOpened && <EnvelopeExperience onComplete={() => setIsOpened(true)} />}
 
       {isOpened && (
         <div style={{ opacity: 1, animation: "fadeIn 2s ease-in-out" }}>
@@ -60,7 +65,12 @@ export default function Home() {
           ></div>
 
           <div style={{ position: "relative", zIndex: 1 }}>
+            <WelcomeSection />
+            <LettersSection />
+            <RomanticMaze />
             <Countdown />
+            <Timeline />
+            <Gallery />
             <Location />
             <GuestMessages />
             <RSVP />

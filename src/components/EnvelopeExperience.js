@@ -1,186 +1,230 @@
 "use client";
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function EnvelopeExperience({ onComplete }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isHidden, setIsHidden] = useState(false);
-  const { t } = useLanguage();
+  const [isExiting, setIsExiting] = useState(false);
 
   const handleOpen = () => {
-    if (!isOpen) {
-      setIsOpen(true);
-      // Wait for animation to finish then tell parent to reveal content
-      setTimeout(() => {
-        onComplete();
-      }, 2500); // Time for paper sliding
-    }
+    setIsOpen(true);
+  };
+
+  const handleEnter = () => {
+    setIsExiting(true);
+    setTimeout(() => {
+      onComplete();
+    }, 1500); // Wait for exit animation
   };
 
   return (
     <AnimatePresence>
-      {!isHidden && (
+      {!isExiting && (
         <motion.div
-          className="envelope-wrapper"
-          initial={{ opacity: 1 }}
-          onClick={handleOpen}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, scale: 1.2, filter: "blur(20px)" }}
+          transition={{ duration: 1.5, ease: "easeInOut" }}
           style={{
-            cursor: isOpen ? 'default' : 'pointer',
-            height: '100vh',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            position: 'relative',
-            width: '100%'
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "var(--bg-dark)",
+            zIndex: 9999,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            overflow: "hidden",
           }}
         >
-          {/* Ambient glow */}
-          <div className="cinematic-glow"></div>
+          {/* Ambient cinematic glow behind envelope */}
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            style={{
+              position: "absolute",
+              width: "60vmin",
+              height: "60vmin",
+              background: "radial-gradient(circle, var(--purple-glow) 0%, transparent 70%)",
+              borderRadius: "50%",
+              filter: "blur(50px)",
+              zIndex: 0,
+            }}
+          />
 
-          <div style={{ position: 'relative', zIndex: 10, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            {/* The Envelope container */}
+          <div style={{ position: "relative", zIndex: 1, perspective: "1000px" }}>
+            {/* The Envelope */}
             <motion.div
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 1, delay: 0.5 }}
               style={{
-                width: '320px',
-                height: '200px',
-                background: 'var(--envelope-bg)',
-                borderRadius: '8px',
-                position: 'relative',
-                boxShadow: '0 20px 50px rgba(0,0,0,0.8), inset 0 0 2px rgba(255,255,255,0.1)'
+                width: "400px",
+                height: "260px",
+                backgroundColor: "var(--envelope-bg)",
+                position: "relative",
+                borderRadius: "8px",
+                boxShadow: "0 20px 50px rgba(0,0,0,0.8), 0 0 0 1px var(--purple-glow)",
+                cursor: isOpen ? "default" : "pointer",
+                transformStyle: "preserve-3d",
               }}
-              animate={{
-                y: isOpen ? 150 : 0,
-                // opacity: isOpen ? 0 : 1
-              }}
-              transition={{ duration: 1.5, delay: 2.5, ease: "easeInOut" }}
+              onClick={!isOpen ? handleOpen : undefined}
             >
-
-              {/* The Paper Card sliding out */}
+              {/* Envelope Flap (Top) */}
               <motion.div
-                style={{
-                  position: 'absolute',
-                  width: '280px',
-                  height: '340px',
-                  background: 'var(--card-bg)',
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255, 215, 0, 0.1)',
-                  left: '20px',
-                  bottom: '10px',
-                  borderRadius: '4px',
-                  padding: '2rem',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  boxShadow: '0 -10px 30px rgba(0,0,0,0.5)',
-                  zIndex: 1
-                }}
-                initial={{ y: 0 }}
-                animate={{ y: isOpen ? -180 : 0 }}
-                transition={{ duration: 1.5, ease: "easeInOut", delay: 0.5 }}
-              >
-                <motion.h3
-                  style={{ color: 'var(--gold-accent)', fontSize: '0.9rem', letterSpacing: '3px', marginBottom: '1rem', textTransform: 'uppercase', fontFamily: 'var(--font-inter)' }}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: isOpen ? 1 : 0 }}
-                  transition={{ delay: 1.2 }}
-                >
-                  {t('invited')}
-                </motion.h3>
-                <motion.h1
-                  style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '1rem', color: '#fff' }}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: isOpen ? 1 : 0 }}
-                  transition={{ delay: 1.7 }}
-                >
-                  {t('names')}
-                </motion.h1>
-                <motion.p
-                  style={{ color: 'var(--text-secondary)', fontStyle: 'italic', fontSize: '1.1rem', fontFamily: 'var(--font-playfair)' }}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: isOpen ? 1 : 0 }}
-                  transition={{ delay: 2.2 }}
-                >
-                  {t('date')}
-                </motion.p>
-              </motion.div>
-
-              {/* Envelope Front overlay to hide the bottom of the paper */}
-              <div
-                style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  width: '100%',
-                  height: '100%',
-                  background: 'linear-gradient(135deg, rgba(30,30,30,1) 0%, rgba(20,20,20,1) 100%)',
-                  borderRadius: '8px',
-                  zIndex: 2,
-                  clipPath: 'polygon(0 40%, 50% 70%, 100% 40%, 100% 100%, 0 100%)',
-                  borderTop: '1px solid rgba(255,255,255,0.05)'
-                }}
-              />
-
-              {/* Envelope Flap (Top) opening */}
-              <motion.div
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  width: '100%',
-                  height: '100%',
-                  background: 'linear-gradient(180deg, rgba(35,35,35,1) 0%, rgba(25,25,25,1) 100%)',
-                  borderRadius: '8px',
-                  zIndex: isOpen ? 0 : 3, // drops behind paper when open
-                  transformOrigin: 'top',
-                  clipPath: 'polygon(0 0, 100% 0, 50% 50%)',
-                  borderBottom: '1px solid rgba(255,255,255,0.05)'
-                }}
                 initial={{ rotateX: 0 }}
-                animate={{ rotateX: isOpen ? 180 : 0 }}
-                transition={{ duration: 1, ease: "easeInOut" }}
-              />
-
-              {/* Gold seal */}
-              {!isOpen && (
-                <div
+                animate={{ rotateX: isOpen ? 180 : 0, zIndex: isOpen ? 0 : 4 }}
+                transition={{ duration: 1.2, ease: [0.65, 0, 0.35, 1] }}
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "140px",
+                  backgroundColor: "var(--envelope-bg)",
+                  clipPath: "polygon(0 0, 50% 100%, 100% 0)",
+                  transformOrigin: "top",
+                  borderTop: "1px solid var(--purple-glow)",
+                  boxShadow: isOpen ? "none" : "0 5px 10px rgba(0,0,0,0.3)",
+                }}
+              >
+                {/* Gold Seal */}
+                <motion.div
+                  animate={{ opacity: isOpen ? 0 : 1, zIndex: isOpen ? 3 : 1 }}
+                  transition={{ duration: 0.3 }}
                   style={{
-                    position: 'absolute',
-                    top: '40%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '50px',
-                    height: '50px',
-                    borderRadius: '50%',
-                    background: 'radial-gradient(circle, #d4af37 0%, #aa8b2b 100%)',
-                    boxShadow: '0 2px 10px rgba(0,0,0,0.5)',
-                    zIndex: 4,
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center'
+                    position: "absolute",
+                    bottom: "-15px",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    width: "40px",
+                    height: "40px",
+                    backgroundColor: "var(--wine-accent)",
+                    borderRadius: "50%",
+                    boxShadow: "0 2px 10px var(--purple-glow)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    color: "var(--bg-dark)",
+                    fontFamily: "var(--font-playfair)",
+                    fontWeight: "bold",
+                    fontSize: "1.2rem",
                   }}
                 >
-                  <span style={{ fontFamily: 'var(--font-playfair)', color: '#2a220a', fontSize: '1.2rem' }}>{t('seal')}</span>
-                </div>
-              )}
-            </motion.div>
+                  A
+                </motion.div>
+              </motion.div>
 
-            {!isOpen && (
-              <motion.p
+              {/* Envelope Body (Bottom overlap) */}
+              <div
                 style={{
-                  position: 'absolute',
-                  bottom: '-50px',
-                  color: 'var(--text-secondary)',
-                  letterSpacing: '2px',
-                  textTransform: 'uppercase',
-                  fontSize: '0.8rem',
-                  fontFamily: 'var(--font-inter)'
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: "var(--envelope-bg)",
+                  clipPath: "polygon(0 100%, 50% 40%, 100% 100%, 100% 0, 0 0)",
+                  borderBottom: "1px solid var(--purple-glow)",
+                  zIndex: 3,
+                  pointerEvents: "none"
                 }}
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{ duration: 2, repeat: Infinity }}
               >
-                {t('tapToOpen')}
-              </motion.p>
-            )}
+                <div style={{
+                  position: "absolute",
+                  bottom: 0, left: 0, width: "100%", height: "100%",
+                  background: "linear-gradient(to top, rgba(0,0,0,0.5), transparent)",
+                }} />
+              </div>
+
+              {/* The Inner Card sliding out */}
+              <motion.div
+                initial={{ y: 0, opacity: 0 }}
+                animate={{
+                  y: isOpen ? -180 : 0,
+                  opacity: isOpen ? 1 : 0,
+                  zIndex: isOpen ? 3 : 1
+                }}
+                transition={{ duration: 1.2, delay: isOpen ? 0.6 : 0, ease: "easeOut" }}
+                style={{
+                  position: "absolute",
+                  bottom: "20px",
+                  left: "5%",
+                  width: "90%",
+                  height: "360px",
+                  backgroundColor: "#FDFBF7", // Soft Ivory
+                  borderRadius: "8px",
+                  boxShadow: "0 -10px 30px rgba(0,0,0,0.5)",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "2rem",
+                  textAlign: "center",
+                  pointerEvents: isOpen ? "auto" : "none",
+                }}
+              >
+                <div style={{
+                  position: "absolute",
+                  top: "10px", left: "10px", right: "10px", bottom: "10px",
+                  border: "1px solid var(--wine-accent)",
+                  borderRadius: "4px",
+                  pointerEvents: "none"
+                }} />
+
+                <h1 style={{
+                  fontFamily: "var(--font-playfair)",
+                  fontSize: "2.5rem",
+                  color: "#10071f",
+                  margin: "1rem 0 0.5rem"
+                }}>
+                  Ahmed <span style={{ display: "block", color: "var(--gold-accent)", fontStyle: "italic", fontSize: "1.8rem" }}>&</span> Rawan
+                </h1>
+
+                <p style={{
+                  fontFamily: "var(--font-inter)",
+                  fontSize: "1rem",
+                  color: "#150a2b",
+                  letterSpacing: "2px",
+                  textTransform: "uppercase",
+                  marginTop: "0.5rem"
+                }}>
+                  July 29, 2026
+                </p>
+
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleEnter}
+                  style={{
+                    marginTop: "auto",
+                    padding: "0.8rem 2rem",
+                    backgroundColor: "#10071f",
+                    color: "var(--gold-accent)",
+                    border: "none",
+                    borderRadius: "30px",
+                    fontFamily: "var(--font-inter)",
+                    textTransform: "uppercase",
+                    letterSpacing: "2px",
+                    fontSize: "0.85rem",
+                    cursor: "pointer",
+                    boxShadow: "0 5px 15px rgba(0,0,0,0.2)"
+                  }}
+                >
+                  Enter Our Story
+                </motion.button>
+              </motion.div>
+
+            </motion.div>
           </div>
         </motion.div>
       )}

@@ -6,20 +6,20 @@ export const translations = {
     date: "June 29, 2026",
     tapToOpen: "Tap to Open",
     seal: "A&R",
-    
+
     // Countdown
     journeyBegins: "The Journey Begins In",
     days: "Days",
     hours: "Hours",
     minutes: "Minutes",
     seconds: "Seconds",
-    
+
     // Location
     whereHeartsMeet: "Where Hearts Meet",
-    locationDesc: "Join us at the historic Grand Hall, surrounded by elegant architecture and soft candlelight.",
-    address: "123 Midnight Avenue\nThe Starlight District",
+    locationDesc: "Join us at Lavida Wedding Hall.",
+    address: "In front of the hospital, Mariouteya Pyramids, \n Saqqara Tourist Road, Abu Nomros, Giza Governorate",
     openInMaps: "Open in Maps",
-    
+
     // Guest Messages
     wordsOfLove: "Words of Love",
     guestbookDesc: "Leave a note or a handwritten message for us to cherish.",
@@ -30,7 +30,7 @@ export const translations = {
     switchToTyped: "Switch to typed message",
     sending: "Sending...",
     sendMessage: "Send Message",
-    
+
     // RSVP
     thankYou: "Thank You",
     responseReceived: "We have received your response.",
@@ -41,7 +41,7 @@ export const translations = {
     dietarySongReq: "Any dietary requirements or song requests?",
     leaveMessage: "Leave a message for the couple...",
     confirmRsvp: "Confirm RSVP",
-    
+
     // Photo Upload
     sharedMemories: "Shared Memories",
     sharePhotosDesc: "Share your photos of the event with us.",
@@ -49,40 +49,100 @@ export const translations = {
     uploading: "Uploading...",
     uploadFile: "Upload File",
     recentUploads: "Recent Uploads",
-    
+
     // Footer
     lookForward: "We look forward to celebrating with you.",
-    
+
     // Music Player
     playUnmute: "Play/Unmute",
     mute: "Mute",
     playBgMusic: "Play Background Music",
-    muteBgMusic: "Mute Background Music"
+    muteBgMusic: "Mute Background Music",
+
+    // Letters Section
+    wordsFromTheHeart: "Words from the Heart",
+    toRecipient: "To my {name},",
+    forRecipient: "For {name}",
+    ahmedMessage: "From the moment I first saw you, I knew my heart had found its home. I promise to love you, cherish you, and walk by your side for all the days of our lives.",
+    rowanMessage: "You are my greatest adventure and my safest place. I cannot wait to build our beautiful future together, hand in hand, forever and always.",
+
+    // Welcome Section
+    welcomeTitle: "Welcome to the celebration of our love",
+    welcomeNames: "Ahmed & Rawan",
+
+    // Timeline
+    ourStory: "Our Love Story",
+    timelineEvents: [
+      {
+        title: "First Meeting",
+        date: "August 12, 2022",
+        description: "Our eyes met across a crowded cafe, and in that fleeting moment, something profound shifted. It wasn't just a glance; it felt like the quiet recognition of a soul I’d known before."
+      },
+      {
+        title: "The First Date",
+        date: "August 20, 2022",
+        description: "An evening filled with endless conversation, shared laughter, and a growing realization that this was the start of something beautiful."
+      },
+      {
+        title: "Engagement Day",
+        date: "December 25, 2024",
+        description: "Underneath a canopy of winter stars, a simple question changed everything. A promise was made, sealed with tears of joy."
+      },
+      {
+        title: "Ring Ceremony",
+        date: "February 14, 2025",
+        description: "Surrounded by our closest loved ones, we exchanged rings as a symbol of our unending commitment and love."
+      },
+      {
+        title: "Wedding Day",
+        date: "October 24, 2026",
+        description: "The day two paths become one journey. We cannot wait to celebrate this beautiful milestone with you."
+      }
+    ],
+
+    // Gallery
+    galleryTitle: "Our Memories",
+    gallerySubtitle: "Captured Moments",
+    galleryBrideGroom: "Bride and Groom",
+    galleryRings: "Wedding Rings",
+    galleryTable: "Table Setup",
+    galleryDance: "First Dance",
+
+    // Maze
+    mazeTitle: "The Path to You",
+    mazeDescription: "Help Ahmed find his way to Rawan",
+    mazeSuccess: "Level Completed",
+    mazeSuccessDesc: "Love always finds a way.",
+    mazeStart: "Start Game",
+    mazeControlUp: "Up",
+    mazeControlDown: "Down",
+    mazeControlLeft: "Left",
+    mazeControlRight: "Right"
   },
   ar: {
     // Envelope
-    invited: "أنت مدعو",
-    names: "أحمد و روان",
+    invited: "نتشرف بدعوتكم",
+    names: "أحمد وروان",
     date: "٢٩ يونيو ٢٠٢٦",
-    tapToOpen: "اضغط للفتح",
+    tapToOpen: "تفضل بالدخول",
     seal: "أ و ر",
-    
+
     // Countdown
-    journeyBegins: "تبدأ الرحلة في",
+    journeyBegins: "يومنا الموعود بعد",
     days: "أيام",
     hours: "ساعات",
     minutes: "دقائق",
     seconds: "ثواني",
-    
+
     // Location
-    whereHeartsMeet: "حيث تلتقي القلوب",
-    locationDesc: "انضم إلينا في القاعة الكبرى التاريخية، وسط الهندسة المعمارية الأنيقة وضوء الشموع الخافت.",
-    address: "١٢٣ شارع منتصف الليل\nمنطقة ستارلايت",
+    whereHeartsMeet: "حيث تتلاقى القلوب",
+    locationDesc: "نسعد بتشريفكم لنا في قاعة افراح لافيدا.",
+    address: "امام مستشفى, المريوطية هرم,\n طريق سقارة السياحي، أبو النمرس، محافظة الجيزة",
     openInMaps: "افتح في الخرائط",
-    
+
     // Guest Messages
-    wordsOfLove: "كلمات الحب",
-    guestbookDesc: "اترك ملاحظة أو رسالة بخط اليد لنعتز بها.",
+    wordsOfLove: "رسائل من القلب",
+    guestbookDesc: "نسعد بكلماتكم ومشاعركم الصادقة لتظل ذكرى خالدة.",
     yourName: "الاسم",
     writeMessage: "اكتب رسالتك...",
     switchToHandwritten: "التبديل إلى ملاحظة بخط اليد",
@@ -90,33 +150,93 @@ export const translations = {
     switchToTyped: "التبديل إلى رسالة مكتوبة",
     sending: "جاري الإرسال...",
     sendMessage: "إرسال الرسالة",
-    
+
     // RSVP
     thankYou: "شكراً لك",
-    responseReceived: "لقد تلقينا ردك.",
-    willYouBeThere: "هل ستكون معنا؟",
-    joyfullyAttending: "سأحضر بكل سرور",
-    regretfullyDecline: "أعتذر عن الحضور",
+    responseReceived: "لقد تلقينا تأكيدكم.",
+    willYouBeThere: "هل ستشاركوننا فرحتنا؟",
+    joyfullyAttending: "بكل سرور سأحضر",
+    regretfullyDecline: "أعتذر مع خالص التمنيات",
     yourFullName: "الاسم الكامل",
     dietarySongReq: "أي متطلبات غذائية أو طلبات أغاني؟",
     leaveMessage: "اترك رسالة للعروسين...",
     confirmRsvp: "تأكيد الحضور",
-    
+
     // Photo Upload
-    sharedMemories: "ذكريات مشتركة",
-    sharePhotosDesc: "شاركنا صورك من حفل الزفاف.",
+    sharedMemories: "لحظات لا تُنسى",
+    sharePhotosDesc: "شاركونا ذكرياتكم وصوركم من ليلتنا.",
     clickToSelect: "اضغط لاختيار ملف",
     uploading: "جاري الرفع...",
     uploadFile: "رفع الملف",
     recentUploads: "الرفع الأخير",
-    
+
     // Footer
-    lookForward: "نتطلع للاحتفال معكم.",
-    
+    lookForward: "تكتمل فرحتنا بحضوركم.",
+
     // Music Player
     playUnmute: "تشغيل/إلغاء كتم الصوت",
     mute: "كتم الصوت",
     playBgMusic: "تشغيل الموسيقى",
-    muteBgMusic: "كتم الموسيقى"
+    muteBgMusic: "كتم الموسيقى",
+
+    // Letters Section
+    wordsFromTheHeart: "كلمات من القلب",
+    toRecipient: "إلى {name}،",
+    forRecipient: "لـ {name}",
+    ahmedMessage: "منذ اللحظة الأولى التي رأيتك فيها، أدركت أن قلبي قد وجد موطنه. أعدك بأن أحبك، وأصونك، وأسير بجانبك طوال أيام حياتنا.",
+    rowanMessage: "أنت أعظم مغامراتي وأكثر الأماكن أمانًا لي. لا أطيق الانتظار لبناء مستقبلنا الجميل معًا، يدًا بيد، إلى الأبد.",
+
+    // Welcome Section
+    welcomeTitle: "مرحباً بكم في احتفال حبنا",
+    welcomeNames: "أحمد وروان",
+
+    // Timeline
+    ourStory: "قصة حبنا",
+    timelineEvents: [
+      {
+        title: "اللقاء الأول",
+        date: "١٢ أغسطس ٢٠٢٢",
+        description: "التقت أعيننا في مقهى مزدحم، وفي تلك اللحظة العابرة تغير شيء عميق. لم تكن مجرد نظرة، بل كان شعوراً بأنني وجدت روحاً أعرفها من قبل."
+      },
+      {
+        title: "الموعد الأول",
+        date: "٢٠ أغسطس ٢٠٢٢",
+        description: "أمسية مليئة بالأحاديث التي لا تنتهي، والضحكات المشتركة، وإدراك متزايد بأن هذه كانت بداية لشيء جميل."
+      },
+      {
+        title: "يوم الخطبة",
+        date: "٢٥ ديسمبر ٢٠٢٤",
+        description: "تحت سماء مرصعة بالنجوم الشتوية، سؤال بسيط غيّر كل شيء. وعد قطعناه وتوجناه بدموع الفرح."
+      },
+      {
+        title: "عقد القران",
+        date: "١٤ فبراير ٢٠٢٥",
+        description: "محاطين بأحبائنا المقربين، تبادلنا الخواتم كرمز لالتزامنا وحبنا الأبدي."
+      },
+      {
+        title: "يوم الزفاف",
+        date: "٢٤ أكتوبر ٢٠٢٦",
+        description: "اليوم الذي يصبح فيه طريقان رحلة واحدة. لا نطيق الانتظار للاحتفال بهذا اليوم الجميل معكم."
+      }
+    ],
+
+    // Gallery
+    galleryTitle: "ذكرياتنا",
+    gallerySubtitle: "لحظات لا تُنسى",
+    galleryBrideGroom: "العروسان",
+    galleryRings: "خواتم الزفاف",
+    galleryTable: "أجواء الحفل",
+    galleryDance: "الرقصة الأولى",
+
+    // Maze
+    mazeTitle: "الطريق إليك",
+    mazeDescription: "ساعد أحمد في إيجاد طريقه إلى روان",
+    mazeSuccess: "اكتمل الطريق",
+    mazeSuccessDesc: "الحب دائماً يجد طريقه.",
+    mazeStart: "ابدأ اللعبة",
+    mazeControlUp: "أعلى",
+    mazeControlDown: "أسفل",
+    mazeControlLeft: "يسار",
+    mazeControlRight: "يمين"
   }
 };
