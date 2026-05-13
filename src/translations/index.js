@@ -39,6 +39,16 @@ export const translations = {
     lockedStateMsg: "Only the groom can view these messages.",
     next: "Next",
     prev: "Previous",
+    dashboard: "Groom Dashboard",
+    totalAttendees: "Total Attendees",
+    attendingCount: "Attending",
+    declinedCount: "Declined",
+    searchGuest: "Search guest name...",
+    guestName: "Guest Name",
+    status: "Status",
+    message: "Message",
+    noResults: "No results found",
+    all: "All",
 
     // RSVP
     thankYou: "Thank You",
@@ -168,6 +178,16 @@ export const translations = {
     lockedStateMsg: "فقط العريس يمكنه رؤية هذه الرسائل.",
     next: "التالي",
     prev: "السابق",
+    dashboard: "لوحة تحكم العريس",
+    totalAttendees: "إجمالي الحضور",
+    attendingCount: "حاضر",
+    declinedCount: "معتذر",
+    searchGuest: "ابحث عن اسم الضيف...",
+    guestName: "اسم الضيف",
+    status: "الحالة",
+    message: "الرسالة",
+    noResults: "لا توجد نتائج",
+    all: "الكل",
 
     // RSVP
     thankYou: "شكراً لك",

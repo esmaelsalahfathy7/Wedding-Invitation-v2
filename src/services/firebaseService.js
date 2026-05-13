@@ -48,6 +48,21 @@ export const saveRSVP = async (name, attending, additionalMessage) => {
   }
 };
 
+export const getRSVPs = async () => {
+  try {
+    const q = query(collection(db, "rsvp"), orderBy("timestamp", "desc"));
+    const querySnapshot = await getDocs(q);
+    const rsvps = [];
+    querySnapshot.forEach((doc) => {
+      rsvps.push({ id: doc.id, ...doc.data() });
+    });
+    return { success: true, data: rsvps };
+  } catch (e) {
+    console.error("Error fetching RSVPs: ", e);
+    return { success: false, error: e, data: [] };
+  }
+};
+
 // export const uploadFile = async (file) => {
 //   return new Promise((resolve, reject) => {
 //     if (!file) {

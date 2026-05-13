@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CanvasDraw from './CanvasDraw';
+import GroomDashboard from './GroomDashboard';
 import { saveMessage, getMessages } from '../services/firebaseService';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -37,6 +38,7 @@ export default function GuestMessages() {
   // Groom Auth State
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDashboardOpen, setIsDashboardOpen] = useState(false);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
@@ -87,6 +89,7 @@ export default function GuestMessages() {
   const handleLogout = () => {
     setIsAuthenticated(false);
     sessionStorage.removeItem('groom_auth');
+    setIsDashboardOpen(false);
   };
 
   // Pagination Calculations
@@ -113,7 +116,15 @@ export default function GuestMessages() {
       transition={{ duration: 1 }}
       style={{ position: 'relative' }}
     >
-      <div style={{ position: 'absolute', top: '2rem', right: lang === 'ar' ? 'auto' : '2rem', left: lang === 'ar' ? '2rem' : 'auto', zIndex: 10 }}>
+      <div style={{ 
+        position: 'absolute', 
+        top: '2rem', 
+        right: lang === 'ar' ? 'auto' : '2rem', 
+        left: lang === 'ar' ? '2rem' : 'auto', 
+        zIndex: 10,
+        display: 'flex',
+        gap: '0.5rem'
+      }}>
         {!isAuthenticated ? (
           <button
             onClick={() => setIsModalOpen(true)}
@@ -137,24 +148,44 @@ export default function GuestMessages() {
             <span style={{ fontSize: '1rem' }}>🔒</span> {t('groomAccess')}
           </button>
         ) : (
-          <button
-            onClick={handleLogout}
-            style={{
-              background: 'rgba(92, 37, 51, 0.2)',
-              border: '1px solid var(--wine-accent)',
-              color: 'var(--text-primary)',
-              padding: '0.5rem 1rem',
-              borderRadius: '20px',
-              cursor: 'pointer',
-              fontSize: '0.8rem',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              transition: 'all 0.3s ease'
-            }}
-          >
-            <span style={{ fontSize: '1rem' }}>🔓</span> {t('lockMessages')}
-          </button>
+          <>
+            <button
+              onClick={() => setIsDashboardOpen(true)}
+              style={{
+                background: 'rgba(197, 160, 89, 0.1)',
+                border: '1px solid var(--gold-accent)',
+                color: 'var(--gold-accent)',
+                padding: '0.5rem 1rem',
+                borderRadius: '20px',
+                cursor: 'pointer',
+                fontSize: '0.8rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                transition: 'all 0.3s ease'
+              }}
+            >
+              <span style={{ fontSize: '1rem' }}>📊</span> {t('dashboard')}
+            </button>
+            <button
+              onClick={handleLogout}
+              style={{
+                background: 'rgba(92, 37, 51, 0.2)',
+                border: '1px solid var(--wine-accent)',
+                color: 'var(--text-primary)',
+                padding: '0.5rem 1rem',
+                borderRadius: '20px',
+                cursor: 'pointer',
+                fontSize: '0.8rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                transition: 'all 0.3s ease'
+              }}
+            >
+              <span style={{ fontSize: '1rem' }}>🔓</span> {t('lockMessages')}
+            </button>
+          </>
         )}
       </div>
 
@@ -418,6 +449,7 @@ export default function GuestMessages() {
           </motion.div>
         )}
       </AnimatePresence>
+      <GroomDashboard isOpen={isDashboardOpen} onClose={() => setIsDashboardOpen(false)} />
     </motion.div>
   );
 }

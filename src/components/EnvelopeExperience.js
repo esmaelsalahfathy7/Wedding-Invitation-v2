@@ -65,7 +65,7 @@ export default function EnvelopeExperience({ onComplete }) {
             {/* The Envelope */}
             <motion.div
               initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
+              animate={{ y: 0, opacity: 1, transform: isOpen ? "translateY(90px)" : "translateY(0px)" }}
               transition={{ duration: 1, delay: 0.5 }}
               style={{
                 width: "400px",
@@ -76,6 +76,7 @@ export default function EnvelopeExperience({ onComplete }) {
                 boxShadow: "0 20px 50px rgba(0,0,0,0.8), 0 0 0 1px var(--purple-glow)",
                 cursor: isOpen ? "default" : "pointer",
                 transformStyle: "preserve-3d",
+                transition: "all 1s ease"
               }}
               onClick={!isOpen ? handleOpen : undefined}
             >
