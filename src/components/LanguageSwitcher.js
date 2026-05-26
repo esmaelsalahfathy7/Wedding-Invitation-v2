@@ -2,7 +2,9 @@
 import { useLanguage } from '../context/LanguageContext';
 
 export default function LanguageSwitcher() {
-  const { lang, toggleLanguage } = useLanguage();
+  const { lang, toggleLanguage, isLanguageSwitcherVisible } = useLanguage();
+
+  if (!isLanguageSwitcherVisible) return null;
 
   return (
     <button

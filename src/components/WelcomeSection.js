@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
 
 export default function WelcomeSection() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
 
   return (
     <section className="section-container" style={{ position: "relative", padding: "8rem 2rem 4rem" }}>
@@ -37,70 +37,70 @@ export default function WelcomeSection() {
           {/* Elegant floating floral corners */}
           <motion.div
             style={{ position: "absolute", top: "-3rem", left: "-3rem", pointerEvents: "none", zIndex: 10 }}
-            animate={{ 
-              y: [0, -10, 0], 
+            animate={{
+              y: [0, -10, 0],
               opacity: [0.6, 1, 0.6],
               filter: ["drop-shadow(0 0 5px rgba(92, 37, 51, 0.3))", "drop-shadow(0 0 15px rgba(92, 37, 51, 0.8))", "drop-shadow(0 0 5px rgba(92, 37, 51, 0.3))"]
             }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
           >
             <svg width="150" height="150" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M0,0 Q40,10 60,60 T100,100" stroke="var(--gold-accent)" strokeWidth="1.5" fill="none" opacity="0.6"/>
-              <path d="M20,5 Q30,-5 40,5 Q30,15 20,5" fill="var(--gold-accent)" opacity="0.6"/>
-              <path d="M40,25 Q55,15 65,35 Q50,45 40,25" fill="var(--gold-accent)" opacity="0.5"/>
-              <path d="M10,30 Q15,45 30,40 Q25,25 10,30" fill="var(--ivory-highlight)" opacity="0.4"/>
-              <path d="M60,60 Q80,55 90,75 Q70,80 60,60" fill="var(--ivory-highlight)" opacity="0.5"/>
-              <path d="M45,75 Q50,90 65,85 Q60,70 45,75" fill="var(--gold-accent)" opacity="0.6"/>
-              <circle cx="35" cy="15" r="2.5" fill="var(--gold-accent)" opacity="0.8"/>
-              <circle cx="65" cy="50" r="2" fill="var(--ivory-highlight)" opacity="0.7"/>
-              <circle cx="20" cy="50" r="3" fill="var(--wine-accent)" opacity="0.9"/>
+              <path d="M0,0 Q40,10 60,60 T100,100" stroke="var(--gold-accent)" strokeWidth="1.5" fill="none" opacity="0.6" />
+              <path d="M20,5 Q30,-5 40,5 Q30,15 20,5" fill="var(--gold-accent)" opacity="0.6" />
+              <path d="M40,25 Q55,15 65,35 Q50,45 40,25" fill="var(--gold-accent)" opacity="0.5" />
+              <path d="M10,30 Q15,45 30,40 Q25,25 10,30" fill="var(--ivory-highlight)" opacity="0.4" />
+              <path d="M60,60 Q80,55 90,75 Q70,80 60,60" fill="var(--ivory-highlight)" opacity="0.5" />
+              <path d="M45,75 Q50,90 65,85 Q60,70 45,75" fill="var(--gold-accent)" opacity="0.6" />
+              <circle cx="35" cy="15" r="2.5" fill="var(--gold-accent)" opacity="0.8" />
+              <circle cx="65" cy="50" r="2" fill="var(--ivory-highlight)" opacity="0.7" />
+              <circle cx="20" cy="50" r="3" fill="var(--wine-accent)" opacity="0.9" />
             </svg>
           </motion.div>
 
           <motion.div
             style={{ position: "absolute", bottom: "-3rem", right: "-3rem", pointerEvents: "none", zIndex: 10, transform: "rotate(180deg)" }}
-            animate={{ 
-              y: [0, 10, 0], 
+            animate={{
+              y: [0, 10, 0],
               opacity: [0.6, 1, 0.6],
               filter: ["drop-shadow(0 0 5px rgba(92, 37, 51, 0.3))", "drop-shadow(0 0 15px rgba(92, 37, 51, 0.8))", "drop-shadow(0 0 5px rgba(92, 37, 51, 0.3))"]
             }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
           >
             <svg width="150" height="150" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ transform: "rotate(180deg)" }}>
-              <path d="M0,0 Q40,10 60,60 T100,100" stroke="var(--gold-accent)" strokeWidth="1.5" fill="none" opacity="0.6"/>
-              <path d="M20,5 Q30,-5 40,5 Q30,15 20,5" fill="var(--gold-accent)" opacity="0.6"/>
-              <path d="M40,25 Q55,15 65,35 Q50,45 40,25" fill="var(--gold-accent)" opacity="0.5"/>
-              <path d="M10,30 Q15,45 30,40 Q25,25 10,30" fill="var(--ivory-highlight)" opacity="0.4"/>
-              <path d="M60,60 Q80,55 90,75 Q70,80 60,60" fill="var(--ivory-highlight)" opacity="0.5"/>
-              <path d="M45,75 Q50,90 65,85 Q60,70 45,75" fill="var(--gold-accent)" opacity="0.6"/>
-              <circle cx="35" cy="15" r="2.5" fill="var(--gold-accent)" opacity="0.8"/>
-              <circle cx="65" cy="50" r="2" fill="var(--ivory-highlight)" opacity="0.7"/>
-              <circle cx="20" cy="50" r="3" fill="var(--wine-accent)" opacity="0.9"/>
+              <path d="M0,0 Q40,10 60,60 T100,100" stroke="var(--gold-accent)" strokeWidth="1.5" fill="none" opacity="0.6" />
+              <path d="M20,5 Q30,-5 40,5 Q30,15 20,5" fill="var(--gold-accent)" opacity="0.6" />
+              <path d="M40,25 Q55,15 65,35 Q50,45 40,25" fill="var(--gold-accent)" opacity="0.5" />
+              <path d="M10,30 Q15,45 30,40 Q25,25 10,30" fill="var(--ivory-highlight)" opacity="0.4" />
+              <path d="M60,60 Q80,55 90,75 Q70,80 60,60" fill="var(--ivory-highlight)" opacity="0.5" />
+              <path d="M45,75 Q50,90 65,85 Q60,70 45,75" fill="var(--gold-accent)" opacity="0.6" />
+              <circle cx="35" cy="15" r="2.5" fill="var(--gold-accent)" opacity="0.8" />
+              <circle cx="65" cy="50" r="2" fill="var(--ivory-highlight)" opacity="0.7" />
+              <circle cx="20" cy="50" r="3" fill="var(--wine-accent)" opacity="0.9" />
             </svg>
           </motion.div>
-          
-          
+
+
           <motion.h1 style={{
             fontFamily: "var(--font-playfair)",
             fontSize: "4rem",
-            color: "var(--text-primary)",
+            color: "var(--gold-accent)",
             lineHeight: 1.2,
             marginBottom: "1rem",
             textShadow: "0 0 20px rgba(253, 251, 247, 0.1)"
           }}>
-            {t("welcomeNames").split("&").map((part, index, arr) => (
-              <React.Fragment key={index}>
-                {part.trim()}
-                {index < arr.length - 1 && (
-                  <>
-                    <br />
-                    <span style={{ fontSize: "2.5rem", color: "var(--gold-accent)", fontStyle: "italic" }}>&</span> <br />
-                  </>
-                )}
-              </React.Fragment>
-            ))}
+            {lang === 'ar' ? (
+              <>
+                <span style={{ fontSize: "5rem", fontStyle: "italic" }}>أحمد</span> <br />
+                <span style={{ fontSize: "3rem", fontStyle: "italic" }}>&</span> <br />
+                <span style={{ fontSize: "5rem", fontStyle: "italic" }}>روان</span>
+              </>
+            ) : (
+              <>
+                Ahmed <br /> <span style={{ color: "var(--gold-accent)", fontStyle: "italic" }}>&</span> <br /> Rawan
+              </>
+            )}
           </motion.h1>
-          
+
           <div style={{
             width: "2px",
             height: "60px",

@@ -22,8 +22,23 @@ export default function BackgroundSong() {
     });
 
     return () => {
-      audioRef.current.pause();
+      if (audioRef.current) audioRef.current.pause();
     };
+  }, []);
+
+  useEffect(() => {
+    const handlePlayMusicEvent = () => {
+      if (audioRef.current && audioRef.current.paused) {
+        audioRef.current.play().then(() => {
+          setIsPlaying(true);
+          setIsMuted(false);
+          audioRef.current.muted = false;
+        }).catch(err => console.log("Playback failed via event", err));
+      }
+    };
+
+    window.addEventListener('playBackgroundMusic', handlePlayMusicEvent);
+    return () => window.removeEventListener('playBackgroundMusic', handlePlayMusicEvent);
   }, []);
 
   const toggleMute = () => {

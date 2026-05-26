@@ -1,16 +1,67 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function EnvelopeExperience({ onComplete }) {
+  const { lang } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
+  const [showContent, setShowContent] = useState(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const videoRef = useRef(null);
+
+  const triggerTransition = () => {
+    if (showContent) return;
+    setShowContent(true);
+    
+    // Smooth audio fade out to match cinematic visual fade
+    if (videoRef.current) {
+      let volume = videoRef.current.volume;
+      const fadeOutInterval = setInterval(() => {
+        if (volume > 0.05) {
+          volume -= 0.05;
+          if (videoRef.current) videoRef.current.volume = volume;
+        } else {
+          if (videoRef.current) {
+            videoRef.current.volume = 0;
+            videoRef.current.pause();
+          }
+          clearInterval(fadeOutInterval);
+        }
+      }, 50); // Fades out over ~1 second
+    }
+  };
+
+  const handleTimeUpdate = () => {
+    if (!videoRef.current || showContent) return;
+    const { currentTime, duration } = videoRef.current;
+    
+    if (duration > 0 && duration - currentTime <= 5) {
+      triggerTransition();
+    }
+  };
+
+  const handleSkip = (e) => {
+    e.stopPropagation();
+    triggerTransition();
+  };
 
   const handleOpen = () => {
     setIsOpen(true);
+    if (videoRef.current) {
+      videoRef.current.play().then(() => {
+        setIsVideoPlaying(true);
+      }).catch(error => {
+        console.error("Video playback failed:", error);
+      });
+    }
   };
 
   const handleEnter = () => {
+    // Dispatch event to trigger music if allowed
+    window.dispatchEvent(new CustomEvent('playBackgroundMusic'));
+
     setIsExiting(true);
     setTimeout(() => {
       onComplete();
@@ -68,8 +119,8 @@ export default function EnvelopeExperience({ onComplete }) {
               animate={{ y: 0, opacity: 1, transform: isOpen ? "translateY(90px)" : "translateY(0px)" }}
               transition={{ duration: 1, delay: 0.5 }}
               style={{
-                width: "400px",
-                height: "260px",
+                width: "min(90vw, 440px)",
+                height: "280px",
                 backgroundColor: "var(--envelope-bg)",
                 position: "relative",
                 borderRadius: "8px",
@@ -90,7 +141,7 @@ export default function EnvelopeExperience({ onComplete }) {
                   top: 0,
                   left: 0,
                   width: "100%",
-                  height: "140px",
+                  height: "160px",
                   backgroundColor: "var(--envelope-bg)",
                   clipPath: "polygon(0 0, 50% 100%, 100% 0)",
                   transformOrigin: "top",
@@ -98,31 +149,41 @@ export default function EnvelopeExperience({ onComplete }) {
                   boxShadow: isOpen ? "none" : "0 5px 10px rgba(0,0,0,0.3)",
                 }}
               >
-                {/* Gold Seal */}
-                <motion.div
-                  animate={{ opacity: isOpen ? 0 : 1, zIndex: isOpen ? 3 : 1 }}
-                  transition={{ duration: 0.3 }}
-                  style={{
-                    position: "absolute",
-                    bottom: "-15px",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    width: "40px",
-                    height: "40px",
-                    backgroundColor: "var(--wine-accent)",
-                    borderRadius: "50%",
-                    boxShadow: "0 2px 10px var(--purple-glow)",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    color: "var(--bg-dark)",
-                    fontFamily: "var(--font-playfair)",
-                    fontWeight: "bold",
-                    fontSize: "1.2rem",
-                  }}
-                >
-                  A
-                </motion.div>
+              </motion.div>
+
+              {/* Paper Tape / Sticker Seal (Moved outside flap to avoid clipPath) */}
+              <motion.div
+                animate={{ opacity: isOpen ? 0 : 1, zIndex: isOpen ? 3 : 5 }}
+                transition={{ duration: 0.3 }}
+                whileHover={{ scale: 1.05, backgroundColor: "#fff" }}
+                whileTap={{ scale: 0.95 }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (!isOpen) handleOpen();
+                }}
+                style={{
+                  position: "absolute",
+                  top: "160px",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  width: "120px",
+                  height: "50px",
+                  backgroundColor: "#FDFBF7",
+                  borderRadius: "4px",
+                  boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  color: "var(--wine-accent)",
+                  fontFamily: "var(--font-playfair)",
+                  fontWeight: "bold",
+                  fontSize: "1.2rem",
+                  cursor: "pointer",
+                  border: "1px dashed rgba(92, 37, 51, 0.4)",
+                  letterSpacing: "2px"
+                }}
+              >
+                {lang === 'ar' ? 'افتح' : 'OPEN'}
               </motion.div>
 
               {/* Envelope Body (Bottom overlap) */}
@@ -151,7 +212,7 @@ export default function EnvelopeExperience({ onComplete }) {
               <motion.div
                 initial={{ y: 0, opacity: 0 }}
                 animate={{
-                  y: isOpen ? -180 : 0,
+                  y: isOpen ? -200 : 0,
                   opacity: isOpen ? 1 : 0,
                   zIndex: isOpen ? 3 : 1
                 }}
@@ -161,7 +222,7 @@ export default function EnvelopeExperience({ onComplete }) {
                   bottom: "20px",
                   left: "5%",
                   width: "90%",
-                  height: "360px",
+                  height: "420px",
                   backgroundColor: "#FDFBF7", // Soft Ivory
                   borderRadius: "8px",
                   boxShadow: "0 -10px 30px rgba(0,0,0,0.5)",
@@ -169,9 +230,9 @@ export default function EnvelopeExperience({ onComplete }) {
                   flexDirection: "column",
                   alignItems: "center",
                   justifyContent: "center",
-                  padding: "2rem",
                   textAlign: "center",
                   pointerEvents: isOpen ? "auto" : "none",
+                  overflow: "hidden"
                 }}
               >
                 <div style={{
@@ -179,50 +240,150 @@ export default function EnvelopeExperience({ onComplete }) {
                   top: "10px", left: "10px", right: "10px", bottom: "10px",
                   border: "1px solid var(--wine-accent)",
                   borderRadius: "4px",
-                  pointerEvents: "none"
+                  pointerEvents: "none",
+                  zIndex: 2
                 }} />
 
-                <h1 style={{
-                  fontFamily: "var(--font-playfair)",
-                  fontSize: "2.5rem",
-                  color: "#10071f",
-                  margin: "1rem 0 0.5rem"
-                }}>
-                  Ahmed <span style={{ display: "block", color: "var(--gold-accent)", fontStyle: "italic", fontSize: "1.8rem" }}>&</span> Rawan
-                </h1>
+                <AnimatePresence mode="wait">
+                  {!showContent ? (
+                    <motion.div
+                      key="video"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 1 }}
+                      style={{
+                        position: "absolute",
+                        top: 0, left: 0, right: 0, bottom: 0,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        backgroundColor: "#000",
+                        zIndex: 1
+                      }}
+                    >
+                      <video
+                        ref={videoRef}
+                        src="./vid.mp4"
+                        playsInline
+                        onTimeUpdate={handleTimeUpdate}
+                        onEnded={triggerTransition}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                      
+                      {/* Skip Video Button */}
+                      {isVideoPlaying && (
+                        <motion.button
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.2)" }}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={handleSkip}
+                          style={{
+                            position: "absolute",
+                            bottom: "30px",
+                            right: "30px",
+                            padding: "0.6rem 1.5rem",
+                            backgroundColor: "rgba(0,0,0,0.4)",
+                            color: "var(--ivory-highlight)",
+                            border: "1px solid rgba(255,255,255,0.3)",
+                            borderRadius: "30px",
+                            backdropFilter: "blur(5px)",
+                            fontFamily: "var(--font-inter)",
+                            fontSize: "0.85rem",
+                            letterSpacing: "1px",
+                            cursor: "pointer",
+                            zIndex: 10,
+                            textTransform: "uppercase"
+                          }}
+                        >
+                          {lang === 'ar' ? 'تخطي' : 'Skip Video'}
+                        </motion.button>
+                      )}
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="content"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 1 }}
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        width: "100%",
+                        height: "100%",
+                        padding: "3rem 1.5rem",
+                        zIndex: 1,
+                        boxSizing: "border-box"
+                      }}
+                    >
+                      <p style={{
+                        fontFamily: "'Amiri', 'Cairo', serif",
+                        fontSize: "clamp(1.1rem, 4.5vw, 1.4rem)",
+                        color: "var(--gold-accent)",
+                        textAlign: "center",
+                        direction: "rtl",
+                        lineHeight: "1.8",
+                        width: "100%",
+                        textShadow: "0 1px 2px rgba(0,0,0,0.05)",
+                        margin: "0"
+                      }}>
+                        "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُمْ مِنْ أَنْفُسِكُمْ أَزْوَاجًا لِتَسْكُنُوا إِلَيْهَا"
+                      </p>
 
-                <p style={{
-                  fontFamily: "var(--font-inter)",
-                  fontSize: "1rem",
-                  color: "#150a2b",
-                  letterSpacing: "2px",
-                  textTransform: "uppercase",
-                  marginTop: "0.5rem"
-                }}>
-                  July 29, 2026
-                </p>
+                      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", margin: "1rem 0" }}>
+                        <h1 style={{
+                          fontFamily: "var(--font-playfair)",
+                          fontSize: "clamp(2.2rem, 8vw, 3rem)",
+                          color: "#10071f",
+                          margin: "0 0 0.5rem",
+                          lineHeight: "1.1"
+                        }}>
+                          Ahmed <span style={{ display: "block", color: "var(--gold-accent)", fontStyle: "italic", fontSize: "clamp(1.5rem, 5vw, 2rem)" }}>&</span> Rawan
+                        </h1>
 
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={handleEnter}
-                  style={{
-                    marginTop: "auto",
-                    padding: "0.8rem 2rem",
-                    backgroundColor: "#10071f",
-                    color: "var(--gold-accent)",
-                    border: "none",
-                    borderRadius: "30px",
-                    fontFamily: "var(--font-inter)",
-                    textTransform: "uppercase",
-                    letterSpacing: "2px",
-                    fontSize: "0.85rem",
-                    cursor: "pointer",
-                    boxShadow: "0 5px 15px rgba(0,0,0,0.2)"
-                  }}
-                >
-                  Enter Our Story
-                </motion.button>
+                        <p style={{
+                          fontFamily: "var(--font-inter)",
+                          fontSize: "clamp(0.85rem, 3vw, 1rem)",
+                          color: "#150a2b",
+                          letterSpacing: "3px",
+                          textTransform: "uppercase",
+                          margin: "0"
+                        }}>
+                          July 29, 2026
+                        </p>
+                      </div>
+
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={handleEnter}
+                        style={{
+                          padding: "0.8rem 2.2rem",
+                          backgroundColor: "#10071f",
+                          color: "var(--gold-accent)",
+                          border: "none",
+                          borderRadius: "30px",
+                          fontFamily: "var(--font-inter)",
+                          textTransform: "uppercase",
+                          letterSpacing: "2px",
+                          fontSize: "0.85rem",
+                          cursor: "pointer",
+                          boxShadow: "0 5px 15px rgba(0,0,0,0.2)",
+                          marginTop: "0.5rem"
+                        }}
+                      >
+                        Enter Our Story
+                      </motion.button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
 
             </motion.div>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
 
@@ -129,8 +129,29 @@ const LetterCard = ({ senderInitial, senderName, recipientName, forRecipientStr,
 };
 
 export default function LettersSection() {
-  const { t, lang } = useLanguage();
+  const { t, lang, setIsLanguageSwitcherVisible } = useLanguage();
   const [selectedLetter, setSelectedLetter] = useState(null);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    if (!setIsLanguageSwitcherVisible) return;
+    
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsLanguageSwitcherVisible(!entry.isIntersecting);
+      },
+      { threshold: 0.2 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+      setIsLanguageSwitcherVisible(true);
+    };
+  }, [setIsLanguageSwitcherVisible]);
 
   const ahmedName = lang === "ar" ? "أحمد" : "Ahmed";
   const rawanName = lang === "ar" ? "روان" : "Rawan";
@@ -159,7 +180,7 @@ export default function LettersSection() {
   ];
 
   return (
-    <section className="section-container" style={{ position: "relative", padding: "8rem 2rem 14rem", overflow: "hidden" }}>
+    <section ref={sectionRef} className="section-container" style={{ position: "relative", padding: "8rem 2rem 14rem", overflow: "hidden" }}>
       <Particles />
 
       <motion.div

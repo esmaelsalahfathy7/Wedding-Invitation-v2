@@ -6,6 +6,7 @@ const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
   const [lang, setLang] = useState('en');
+  const [isLanguageSwitcherVisible, setIsLanguageSwitcherVisible] = useState(true);
 
   useEffect(() => {
     // Attempt to load saved language
@@ -31,7 +32,7 @@ export const LanguageProvider = ({ children }) => {
   };
 
   return (
-    <LanguageContext.Provider value={{ lang, toggleLanguage, t }}>
+    <LanguageContext.Provider value={{ lang, toggleLanguage, t, isLanguageSwitcherVisible, setIsLanguageSwitcherVisible }}>
       {children}
     </LanguageContext.Provider>
   );

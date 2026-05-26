@@ -30,7 +30,7 @@ export const translations = {
     switchToTyped: "Switch to typed message",
     sending: "Sending...",
     sendMessage: "Send Message",
-    groomAccess: "Groom Access",
+    groomAccess: "Couple Access",
     areYouGroom: "Are you the groom?",
     enterPassword: "Enter Password",
     incorrectPassword: "Incorrect password",
@@ -86,7 +86,7 @@ export const translations = {
     rowanMessage: "You are my greatest adventure and my safest place. I cannot wait to build our beautiful future together, hand in hand, forever and always.",
 
     // Welcome Section
-    welcomeTitle: "Welcome to the celebration of our love",
+    welcomeTitle: "As we begin our forever, we would be honored to have you by our side",
     welcomeNames: "Ahmed & Rawan",
 
     // Timeline
@@ -114,7 +114,7 @@ export const translations = {
       },
       {
         title: "Wedding Day",
-        date: "October 24, 2026",
+        date: "June 29, 2026",
         description: "The day two paths become one journey. We cannot wait to celebrate this beautiful milestone with you."
       }
     ],
@@ -169,7 +169,7 @@ export const translations = {
     switchToTyped: "التبديل إلى رسالة مكتوبة",
     sending: "جاري الإرسال...",
     sendMessage: "إرسال الرسالة",
-    groomAccess: "دخول العريس",
+    groomAccess: "دخول العرسان",
     areYouGroom: "هل أنت العريس؟",
     enterPassword: "أدخل كلمة المرور",
     incorrectPassword: "كلمة المرور غير صحيحة",
@@ -225,7 +225,7 @@ export const translations = {
     rowanMessage: "أنت أعظم مغامراتي وأكثر الأماكن أمانًا لي. لا أطيق الانتظار لبناء مستقبلنا الجميل معًا، يدًا بيد، إلى الأبد.",
 
     // Welcome Section
-    welcomeTitle: "مرحباً بكم في احتفال حبنا",
+    welcomeTitle: "بينما نبدأ رحلتنا الأبدية معاً، يشرفنا أن تكونوا إلى جانبنا",
     welcomeNames: "أحمد وروان",
 
     // Timeline
@@ -253,7 +253,7 @@ export const translations = {
       },
       {
         title: "يوم الزفاف",
-        date: "٢٤ أكتوبر ٢٠٢٦",
+        date: "٢٩ يونيو ٢٠٢٦",
         description: "اليوم الذي يصبح فيه طريقان رحلة واحدة. لا نطيق الانتظار للاحتفال بهذا اليوم الجميل معكم."
       }
     ],
