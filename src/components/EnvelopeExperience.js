@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
 
@@ -10,11 +10,21 @@ export default function EnvelopeExperience({ onComplete }) {
   const [showContent, setShowContent] = useState(false);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const videoRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const triggerTransition = () => {
     if (showContent) return;
     setShowContent(true);
-    
+
     // Smooth audio fade out to match cinematic visual fade
     if (videoRef.current) {
       let volume = videoRef.current.volume;
@@ -36,7 +46,7 @@ export default function EnvelopeExperience({ onComplete }) {
   const handleTimeUpdate = () => {
     if (!videoRef.current || showContent) return;
     const { currentTime, duration } = videoRef.current;
-    
+
     if (duration > 0 && duration - currentTime <= 5) {
       triggerTransition();
     }
@@ -153,37 +163,55 @@ export default function EnvelopeExperience({ onComplete }) {
 
               {/* Paper Tape / Sticker Seal (Moved outside flap to avoid clipPath) */}
               <motion.div
-                animate={{ opacity: isOpen ? 0 : 1, zIndex: isOpen ? 3 : 5 }}
+                animate={{ opacity: isOpen ? 0 : 1 }}
                 transition={{ duration: 0.3 }}
-                whileHover={{ scale: 1.05, backgroundColor: "#fff" }}
-                whileTap={{ scale: 0.95 }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (!isOpen) handleOpen();
-                }}
                 style={{
                   position: "absolute",
                   top: "160px",
                   left: "50%",
                   transform: "translate(-50%, -50%)",
-                  width: "120px",
-                  height: "50px",
-                  backgroundColor: "#FDFBF7",
-                  borderRadius: "4px",
-                  boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  color: "var(--wine-accent)",
-                  fontFamily: "var(--font-playfair)",
-                  fontWeight: "bold",
-                  fontSize: "1.2rem",
-                  cursor: "pointer",
-                  border: "1px dashed rgba(92, 37, 51, 0.4)",
-                  letterSpacing: "2px"
+                  zIndex: isOpen ? 3 : 5,
+                  pointerEvents: isOpen ? "none" : "auto",
                 }}
               >
-                {lang === 'ar' ? 'افتح' : 'OPEN'}
+                <motion.button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (!isOpen) handleOpen();
+                  }}
+                  animate={isOpen ? {} : (isMobile ? { y: 0 } : { y: [0, -6, 0] })}
+                  transition={isOpen ? {} : (isMobile ? {} : {
+                    y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+                    default: { duration: 0.5, ease: "easeOut" }
+                  })}
+                  whileHover={{
+                    scale: 1.05,
+                    backgroundColor: "#ffffff",
+                    boxShadow: "0 12px 30px rgba(92, 37, 51, 0.3), 0 0 15px rgba(197, 160, 89, 0.15)",
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  style={{
+                    width: "120px",
+                    height: "50px",
+                    backgroundColor: "#FDFBF7", // Soft cream / warm ivory
+                    borderRadius: "8px", // Slightly rounded (not fully pill)
+                    boxShadow: "0 8px 20px rgba(0,0,0,0.25)", // Soft shadow (not harsh)
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    color: "var(--wine-accent)", // Subtle wine or burgundy accent
+                    fontFamily: "var(--font-playfair)",
+                    fontWeight: "bold",
+                    fontSize: "1.2rem",
+                    cursor: "pointer",
+                    border: "1px dashed rgba(92, 37, 51, 0.4)", // Light dashed or thin border
+                    letterSpacing: "2px",
+                    transition: "background-color 0.5s ease, box-shadow 0.5s ease",
+                    outline: "none"
+                  }}
+                >
+                  {lang === 'ar' ? 'افتح' : 'OPEN'}
+                </motion.button>
               </motion.div>
 
               {/* Envelope Body (Bottom overlap) */}
@@ -264,8 +292,9 @@ export default function EnvelopeExperience({ onComplete }) {
                     >
                       <video
                         ref={videoRef}
-                        src="./vid.mp4"
+                        src="/vid.mp4"
                         playsInline
+                        preload="none"
                         onTimeUpdate={handleTimeUpdate}
                         onEnded={triggerTransition}
                         style={{
@@ -274,7 +303,7 @@ export default function EnvelopeExperience({ onComplete }) {
                           objectFit: "cover",
                         }}
                       />
-                      
+
                       {/* Skip Video Button */}
                       {isVideoPlaying && (
                         <motion.button
@@ -388,8 +417,9 @@ export default function EnvelopeExperience({ onComplete }) {
 
             </motion.div>
           </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        </motion.div >
+      )
+      }
+    </AnimatePresence >
   );
 }

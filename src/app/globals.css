@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
 :root {
   --bg-dark: #10071f;
   --bg-darker: #0a0414;
@@ -10,12 +12,21 @@
   --dark-charcoal: #150a2b;
   --envelope-bg: #1a0f2e;
   --card-bg: rgba(21, 10, 43, 0.6);
+
+  /* Fallback aliases for components requesting old variables */
+  --font-inter: 'Cairo', sans-serif;
+  --font-handwriting: 'Playfair Display', serif;
+  --font-amiri: 'Cairo', sans-serif;
+  --font-cairo: 'Cairo', sans-serif;
+  --font-playfair: 'Playfair Display', serif;
 }
 
 [dir="rtl"] {
-  --font-playfair: var(--font-amiri);
-  --font-inter: var(--font-cairo);
-  --font-handwriting: var(--font-amiri);
+  --font-playfair: 'Cairo', sans-serif;
+  --font-inter: 'Cairo', sans-serif;
+  --font-handwriting: 'Cairo', sans-serif;
+  --font-amiri: 'Cairo', sans-serif;
+  --font-cairo: 'Cairo', sans-serif;
 }
 
 * {
@@ -30,7 +41,7 @@ body {
   overflow-x: hidden;
   background-color: var(--bg-darker);
   color: var(--text-primary);
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-cairo), sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {

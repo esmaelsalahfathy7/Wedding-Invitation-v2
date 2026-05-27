@@ -6,6 +6,8 @@ import LettersSection from "../components/LettersSection";
 import RomanticMaze from "../components/RomanticMaze";
 import Timeline from "../components/Timeline";
 import Gallery from "../components/Gallery";
+import GalleryTemp from "../components/GalleryTemp";
+import TempMix from "../components/tempmix";
 import Countdown from "../components/Countdown";
 import Location from "../components/Location";
 import GuestMessages from "../components/GuestMessages";
@@ -71,6 +73,8 @@ export default function Home() {
             <Countdown />
             <Timeline />
             <Gallery />
+            <GalleryTemp />
+            <TempMix />
             <Location />
             <GuestMessages />
             <RSVP />

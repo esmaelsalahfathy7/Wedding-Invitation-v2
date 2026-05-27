@@ -21,6 +21,7 @@ export default function RomanticMaze() {
   const [position, setPosition] = useState({ r: 0, c: 0 });
   const [trail, setTrail] = useState(["0,0"]);
   const [success, setSuccess] = useState(false);
+  const [hearts, setHearts] = useState([]);
 
   const move = (dr, dc) => {
     if (success) return;
@@ -38,6 +39,16 @@ export default function RomanticMaze() {
 
         if (newR === ROWS - 1 && newC === COLS - 1) {
           setSuccess(true);
+          // Generate 15 distinct drifting hearts with custom physics metrics
+          const particles = Array.from({ length: 15 }, (_, i) => ({
+            id: i,
+            x: (Math.random() - 0.5) * 160,
+            y: (Math.random() - 0.7) * 160 - 50,
+            scale: Math.random() * 0.7 + 0.6,
+            delay: Math.random() * 0.45,
+            rotation: (Math.random() - 0.5) * 60
+          }));
+          setHearts(particles);
         }
       }
     }
@@ -136,15 +147,62 @@ export default function RomanticMaze() {
                       />
                     )}
                     {success && isGroom && isBride && (
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ type: "spring", stiffness: 200, damping: 10 }}
-                        style={{ position: "absolute", zIndex: 20, width: "120%", height: "120%", display: "flex", gap: "2px" }}
-                      >
-                        <img src="/groom_avatar_1778631847811.png" alt="Groom" style={{ width: "50%", height: "100%", borderRadius: "50%", objectFit: "cover" }} />
-                        <img src="/bride_avatar_1778632003040.png" alt="Bride" style={{ width: "50%", height: "100%", borderRadius: "50%", objectFit: "cover" }} />
-                      </motion.div>
+                      <div style={{ position: "absolute", zIndex: 20, width: "120%", height: "120%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                        {/* Merged Avatars */}
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ type: "spring", stiffness: 150, damping: 12 }}
+                          style={{ width: "100%", height: "100%", display: "flex", gap: "2px", zIndex: 20, position: "relative" }}
+                        >
+                          <img src="/groom_avatar_1778631847811.png" alt="Groom" style={{ width: "50%", height: "100%", borderRadius: "50%", objectFit: "cover" }} />
+                          <img src="/bride_avatar_1778632003040.png" alt="Bride" style={{ width: "50%", height: "100%", borderRadius: "50%", objectFit: "cover" }} />
+                        </motion.div>
+
+                        {/* Gold Glow Ring Pulse Effect */}
+                        <motion.div
+                          animate={{ scale: [1, 1.4, 1], opacity: [0.8, 0, 0.8] }}
+                          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                          style={{
+                            position: "absolute",
+                            width: "140%",
+                            height: "140%",
+                            border: "2px solid var(--gold-accent)",
+                            borderRadius: "50%",
+                            boxShadow: "0 0 20px var(--gold-accent)",
+                            zIndex: 10,
+                            pointerEvents: "none"
+                          }}
+                        />
+
+                        {/* Heart Particle Burst */}
+                        {hearts.map((heart) => (
+                          <motion.span
+                            key={heart.id}
+                            initial={{ opacity: 0, scale: 0, x: 0, y: 0, rotate: 0 }}
+                            animate={{
+                              opacity: [0, 1, 1, 0],
+                              scale: heart.scale,
+                              x: heart.x,
+                              y: heart.y,
+                              rotate: heart.rotation
+                            }}
+                            transition={{
+                              duration: 1.8,
+                              ease: "easeOut",
+                              delay: heart.delay
+                            }}
+                            style={{
+                              position: "absolute",
+                              fontSize: "1.4rem",
+                              zIndex: 30,
+                              pointerEvents: "none"
+                            }}
+                          >
+                            ❤️
+                          </motion.span>
+                        ))}
+                      </div>
                     )}
                   </div>
                 );
@@ -156,9 +214,10 @@ export default function RomanticMaze() {
         {/* Success Message */}
         {success && (
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            style={{ marginTop: "2rem", color: "var(--gold-accent)", fontSize: "1.5rem", fontFamily: "var(--font-playfair)", textShadow: "0 0 10px var(--purple-glow)" }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            style={{ marginTop: "2rem", color: "var(--gold-accent)", fontSize: "1.5rem", fontFamily: "var(--font-playfair)", textShadow: "0 0 10px var(--purple-glow)", textAlign: "center" }}
           >
             {t("mazeSuccessDesc")}
           </motion.div>
