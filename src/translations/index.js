@@ -57,7 +57,7 @@ export const translations = {
     joyfullyAttending: "Joyfully Attending",
     regretfullyDecline: "Regretfully Decline",
     yourFullName: "Your Full Name",
-    dietarySongReq: "Any dietary requirements or song requests?",
+    dietarySongReq: "Song requests?",
     leaveMessage: "Leave a message for the couple...",
     confirmRsvp: "Confirm RSVP",
 
@@ -196,7 +196,7 @@ export const translations = {
     joyfullyAttending: "بكل سرور سأحضر",
     regretfullyDecline: "أعتذر مع خالص التمنيات",
     yourFullName: "الاسم الكامل",
-    dietarySongReq: "أي متطلبات غذائية أو طلبات أغاني؟",
+    dietarySongReq: "اقتراحات أغاني؟",
     leaveMessage: "اترك رسالة للعروسين...",
     confirmRsvp: "تأكيد الحضور",
 
