@@ -34,17 +34,17 @@ export default function Timeline() {
       desc: lang === "ar" ? "تحت سماء مرصعة بالنجوم الشتوية، سؤال بسيط غيّر مجرى حياتنا ووعد قطعناه بدموع الفرح." : "Under a canopy of stars, a simple question changed everything. A sacred promise was made."
     },
     {
+      src: "/marriage.png",
+      date: lang === "ar" ? "٢٩ يونيو ٢٠٢٦" : "Wedding Day",
+      title: lang === "ar" ? "يوم الزفاف" : "Wedding Day",
+      desc: lang === "ar" ? "اليوم الذي يصبح فيه طريقان رحلة واحدة. نسعد بتشريفكم لنا وبدء حياتنا المشتركة معاً." : "The day two paths become one beautiful journey. We cannot wait to celebrate this milestone with you."
+    },
+    {
       src: "/love-sign.png",
       date: lang === "ar" ? "١٤ فبراير ٢٠٢٥" : "February 14, 2025",
       title: lang === "ar" ? "عقد القران" : "Ring Ceremony",
       desc: lang === "ar" ? "محاطين بأحبائنا، تبادلنا الخواتم كرمز لالتزامنا وحبنا الأبدي الذي لا ينتهي." : "Surrounded by our closest loved ones, we exchanged rings as a symbol of our unending commitment."
     },
-    {
-      src: "/marriage.png",
-      date: lang === "ar" ? "٢٩ يونيو ٢٠٢٦" : "Wedding Day",
-      title: lang === "ar" ? "يوم الزفاف" : "Wedding Day",
-      desc: lang === "ar" ? "اليوم الذي يصبح فيه طريقان رحلة واحدة. نسعد بتشريفكم لنا وبدء حياتنا المشتركة معاً." : "The day two paths become one beautiful journey. We cannot wait to celebrate this milestone with you."
-    }
   ];
 
   const handleCardClick = (cardIndex) => {
