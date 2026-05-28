@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
 
 :root {
   --bg-dark: #10071f;
@@ -14,18 +15,18 @@
   --card-bg: rgba(21, 10, 43, 0.6);
 
   /* Fallback aliases for components requesting old variables */
-  --font-inter: 'Cairo', sans-serif;
-  --font-handwriting: 'Playfair Display', serif;
-  --font-amiri: 'Cairo', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-handwriting: 'Great Vibes', serif;
+  --font-amiri: 'Amiri', sans-serif;
   --font-cairo: 'Cairo', sans-serif;
-  --font-playfair: 'Playfair Display', serif;
+  --font-playfair: 'Playfair', serif;
 }
 
 [dir="rtl"] {
-  --font-playfair: 'Cairo', sans-serif;
-  --font-inter: 'Cairo', sans-serif;
-  --font-handwriting: 'Cairo', sans-serif;
-  --font-amiri: 'Cairo', sans-serif;
+  --font-playfair: "Playfair", sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-handwriting: "Great Vibes", serif;
+  --font-amiri: 'Amiri', sans-serif;
   --font-cairo: 'Cairo', sans-serif;
 }
 
@@ -44,7 +45,12 @@ body {
   font-family: var(--font-cairo), sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-playfair), serif;
   font-weight: 400;
 }
@@ -151,39 +157,48 @@ a {
     left: 20px !important;
     transform: none !important;
   }
+
   [dir="rtl"] .timeline-line {
     left: auto !important;
     right: 20px !important;
   }
+
   .timeline-dot {
     left: 20px !important;
     transform: translate(-50%, -50%) !important;
   }
+
   [dir="rtl"] .timeline-dot {
     left: auto !important;
     right: 20px !important;
     transform: translate(50%, -50%) !important;
   }
+
   .timeline-event-row {
     justify-content: flex-end !important;
     padding: 2rem 0 2rem 3rem !important;
   }
+
   [dir="rtl"] .timeline-event-row {
     justify-content: flex-start !important;
     padding: 2rem 3rem 2rem 0 !important;
   }
+
   .timeline-card {
     width: 100% !important;
     margin: 0 !important;
     text-align: left !important;
     padding: 1.5rem !important;
   }
+
   [dir="rtl"] .timeline-card {
     text-align: right !important;
   }
+
   .timeline-date {
     text-align: left !important;
   }
+
   [dir="rtl"] .timeline-date {
     text-align: right !important;
   }

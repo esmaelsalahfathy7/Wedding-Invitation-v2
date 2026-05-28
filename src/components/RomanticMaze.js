@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
 
+
 const MAZE_GRID = [
   [0, 1, 0, 0, 0, 0, 0],
   [0, 1, 0, 1, 1, 1, 0],
@@ -17,11 +18,26 @@ const ROWS = MAZE_GRID.length;
 const COLS = MAZE_GRID[0].length;
 
 export default function RomanticMaze() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const [position, setPosition] = useState({ r: 0, c: 0 });
   const [trail, setTrail] = useState(["0,0"]);
   const [success, setSuccess] = useState(false);
   const [hearts, setHearts] = useState([]);
+
+  const textMap = {
+    en: {
+      up: "↑",
+      down: "↓",
+      left: "←",
+      right: "→"
+    },
+    ar: {
+      up: "↑",
+      down: "↓",
+      right: "←",
+      left: "→"
+    }
+  };
 
   const move = (dr, dc) => {
     if (success) return;
@@ -227,11 +243,11 @@ export default function RomanticMaze() {
         {!success && (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 50px)", gap: "10px", marginTop: "2rem" }}>
             <div />
-            <button onClick={() => move(-1, 0)} style={btnStyle}>↑</button>
+            <button onClick={() => move(-1, 0)} style={btnStyle}>{textMap[lang].up}</button>
             <div />
-            <button onClick={() => move(0, -1)} style={btnStyle}>←</button>
-            <button onClick={() => move(1, 0)} style={btnStyle}>↓</button>
-            <button onClick={() => move(0, 1)} style={btnStyle}>→</button>
+            <button onClick={() => move(0, -1)} style={btnStyle}>{textMap[lang].left}</button>
+            <button onClick={() => move(1, 0)} style={btnStyle}>{textMap[lang].down}</button>
+            <button onClick={() => move(0, 1)} style={btnStyle}>{textMap[lang].right}</button>
           </div>
         )}
       </div>

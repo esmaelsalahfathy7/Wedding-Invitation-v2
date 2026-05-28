@@ -135,7 +135,7 @@ export default function LettersSection() {
 
   useEffect(() => {
     if (!setIsLanguageSwitcherVisible) return;
-    
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsLanguageSwitcherVisible(!entry.isIntersecting);
@@ -253,7 +253,7 @@ export default function LettersSection() {
                 maxWidth: "600px",
                 backgroundColor: "#FDFBF7",
                 borderRadius: "8px",
-                padding: "2rem 2rem",
+                padding: "1.8rem",
                 boxShadow: "0 30px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.2)",
                 display: "flex",
                 flexDirection: "column",
@@ -268,7 +268,8 @@ export default function LettersSection() {
                 style={{
                   position: "absolute",
                   top: "20px",
-                  right: "20px",
+                  right: lang === "ar" ? "auto" : "20px",
+                  left: lang === "ar" ? "20px" : "auto",
                   background: "transparent",
                   border: "none",
                   fontSize: "1.5rem",
@@ -288,16 +289,16 @@ export default function LettersSection() {
                 ✕
               </button>
 
-              <h3 style={{ fontFamily: "var(--font-playfair)", color: "#10071f", margin: "0 0 2rem 0", fontSize: "1.8rem" }}>
+              <h3 style={{ fontFamily: "var(--font-playfair)", color: "#10071f", margin: "0 0 1rem 0", fontSize: "1.6rem" }}>
                 {selectedLetter.toRecipientStr}
               </h3>
               <p style={{
                 fontFamily: "var(--font-handwriting)",
                 color: "#2C2C2C",
-                fontSize: "2.2rem",
+                fontSize: "1.8rem",
                 lineHeight: "1.8",
                 flex: 1,
-                marginBottom: "3rem",
+                marginBottom: "2rem",
                 direction: lang === "ar" ? "rtl" : "ltr"
               }}>
                 {selectedLetter.message}
@@ -305,7 +306,7 @@ export default function LettersSection() {
               <span style={{
                 fontFamily: "var(--font-playfair)",
                 color: "var(--wine-accent)",
-                fontSize: "1.5rem",
+                fontSize: "1.1rem",
                 alignSelf: lang === "ar" ? "flex-start" : "flex-end",
                 fontStyle: "italic"
               }}>

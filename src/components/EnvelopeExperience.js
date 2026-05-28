@@ -240,9 +240,9 @@ export default function EnvelopeExperience({ onComplete }) {
               <motion.div
                 initial={{ y: 0, opacity: 0 }}
                 animate={{
-                  y: isOpen ? -200 : 0,
+                  y: isOpen ? -80 : 0,
                   opacity: isOpen ? 1 : 0,
-                  zIndex: isOpen ? 3 : 1
+                  zIndex: isOpen ? 3 : 1,
                 }}
                 transition={{ duration: 1.2, delay: isOpen ? 0.6 : 0, ease: "easeOut" }}
                 style={{
@@ -317,9 +317,9 @@ export default function EnvelopeExperience({ onComplete }) {
                             bottom: "30px",
                             right: "30px",
                             padding: "0.6rem 1.5rem",
-                            backgroundColor: "rgba(0,0,0,0.4)",
-                            color: "var(--ivory-highlight)",
-                            border: "1px solid rgba(255,255,255,0.3)",
+                            backgroundColor: "rgba(0, 0, 0, 0.61)",
+                            color: "var(--gold-accent)",
+                            border: "1px solid rgba(255, 235, 235, 0.61)",
                             borderRadius: "30px",
                             backdropFilter: "blur(5px)",
                             fontFamily: "var(--font-inter)",
@@ -374,7 +374,9 @@ export default function EnvelopeExperience({ onComplete }) {
                           margin: "0 0 0.5rem",
                           lineHeight: "1.1"
                         }}>
-                          Ahmed <span style={{ display: "block", color: "var(--gold-accent)", fontStyle: "italic", fontSize: "clamp(1.5rem, 5vw, 2rem)" }}>&</span> Rawan
+                          {lang === 'ar' ? "أحمد" : "Ahmed"} <span style={{ display: "block", color: "var(--gold-accent)", fontStyle: "italic", fontSize: "clamp(1.5rem, 5vw, 2rem)" }}>&</span>
+
+                          {lang === 'ar' ? "روان" : "Rawan"}
                         </h1>
 
                         <p style={{
@@ -385,7 +387,7 @@ export default function EnvelopeExperience({ onComplete }) {
                           textTransform: "uppercase",
                           margin: "0"
                         }}>
-                          July 29, 2026
+                          {lang === 'ar' ? '٢٩ يونيو ٢٠٢٦' : 'June 29, 2026'}
                         </p>
                       </div>
 
@@ -408,7 +410,7 @@ export default function EnvelopeExperience({ onComplete }) {
                           marginTop: "0.5rem"
                         }}
                       >
-                        Enter Our Story
+                        بداية حكايتنا معكم
                       </motion.button>
                     </motion.div>
                   )}

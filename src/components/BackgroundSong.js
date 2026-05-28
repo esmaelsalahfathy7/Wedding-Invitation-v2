@@ -9,16 +9,16 @@ export default function BackgroundSong() {
   const audioRef = useRef(null);
 
   useEffect(() => {
-    audioRef.current = new Audio("/song.mp3");
+    audioRef.current = new Audio("/song2.mp3");
     audioRef.current.loop = true;
-    
+
     // Attempt to autoplay
     audioRef.current.play().then(() => {
-        setIsPlaying(true);
+      setIsPlaying(true);
     }).catch(error => {
-        // Autoplay was prevented
-        console.log("Autoplay prevented. User interaction required.");
-        setIsPlaying(false);
+      // Autoplay was prevented
+      console.log("Autoplay prevented. User interaction required.");
+      setIsPlaying(false);
     });
 
     return () => {
@@ -55,7 +55,7 @@ export default function BackgroundSong() {
   };
 
   return (
-    <button 
+    <button
       onClick={toggleMute}
       style={{
         position: 'fixed',

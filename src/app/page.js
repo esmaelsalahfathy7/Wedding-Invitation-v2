@@ -17,7 +17,6 @@ import { useLanguage } from "../context/LanguageContext";
 export default function Home() {
   const [isOpened, setIsOpened] = useState(false);
   const { t } = useLanguage();
-
   return (
     <main style={{ minHeight: "100vh", position: "relative" }}>
       <LanguageSwitcher />
