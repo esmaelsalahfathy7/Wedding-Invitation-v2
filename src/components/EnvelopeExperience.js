@@ -38,6 +38,10 @@ export default function EnvelopeExperience({ onComplete }) {
             videoRef.current.pause();
           }
           clearInterval(fadeOutInterval);
+          const timeoutId = setTimeout(() => {
+            onComplete();
+          }, 5000);
+          return () => clearTimeout(timeoutId);
         }
       }, 50); // Fades out over ~1 second
     }

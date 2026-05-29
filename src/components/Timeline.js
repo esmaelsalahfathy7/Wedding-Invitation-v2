@@ -35,15 +35,15 @@ export default function Timeline() {
     },
     {
       src: "/marriage.png",
-      date: lang === "ar" ? "٢٩ يونيو ٢٠٢٦" : "Wedding Day",
-      title: lang === "ar" ? "يوم الزفاف" : "Wedding Day",
-      desc: lang === "ar" ? "اليوم الذي يصبح فيه طريقان رحلة واحدة. نسعد بتشريفكم لنا وبدء حياتنا المشتركة معاً." : "The day two paths become one beautiful journey. We cannot wait to celebrate this milestone with you."
+      date: lang === "ar" ? "٢٩ مايو ٢٠٢٥" : "May 29, 2025",
+      title: lang === "ar" ? "عقد القران" : "Marriage Contract Ceremony",
+      desc: lang === "ar" ? "في حضور الأهل والأصدقاء، احتفلنا بلحظة عابرة غيّرت كل شيء في حياتنا.. عقدنا قراننا، وعاهدنا الله أن تبقى قلوبنا واحدة ما دامت الحياة تنبض." : "In the presence of family and friends, we celebrated a pivotal moment that changed our lives forever.. We solemnized our marriage, promising God that our hearts would remain one as long as life beats."
     },
     {
       src: "/love-sign.png",
-      date: lang === "ar" ? "١٤ فبراير ٢٠٢٥" : "February 14, 2025",
-      title: lang === "ar" ? "عقد القران" : "Ring Ceremony",
-      desc: lang === "ar" ? "محاطين بأحبائنا، تبادلنا الخواتم كرمز لالتزامنا وحبنا الأبدي الذي لا ينتهي." : "Surrounded by our closest loved ones, we exchanged rings as a symbol of our unending commitment."
+      date: lang === "ar" ? "٢٩ يونيو ٢٠٢٦" : "June 29, 2026",
+      title: lang === "ar" ? "يوم الزفاف" : "Wedding Day",
+      desc: lang === "ar" ? "اليوم الذي يصبح فيه طريقان رحلة واحدة. نسعد بتشريفكم لنا وبدء حياتنا المشتركة معاً." : "The day two paths become one beautiful journey. We cannot wait to celebrate this milestone with you."
     },
   ];
 

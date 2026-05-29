@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import EnvelopeExperience from "../components/EnvelopeExperience";
 import WelcomeSection from "../components/WelcomeSection";
 import LettersSection from "../components/LettersSection";
@@ -17,6 +17,9 @@ import { useLanguage } from "../context/LanguageContext";
 export default function Home() {
   const [isOpened, setIsOpened] = useState(false);
   const { t } = useLanguage();
+
+  
+
   return (
     <main style={{ minHeight: "100vh", position: "relative" }}>
       <LanguageSwitcher />
