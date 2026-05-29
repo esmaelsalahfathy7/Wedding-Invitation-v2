@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
 
 /* ─── Handwritten Letter Animations ─────────────────────────────────────── */
 @keyframes inkReveal {
@@ -74,7 +75,7 @@
 }
 
 .letter-handwriting {
-  font-family: 'Dancing Script';
+  font-family: var(--font-handwriting);
   color: #1a1a2e;
   font-size: 1.45rem;
   line-height: 2.18rem;
@@ -127,7 +128,7 @@
 
   /* Fallback aliases for components requesting old variables */
   --font-inter: system-ui, sans-serif;
-  --font-handwriting: "Dancing Script";
+  --font-handwriting: "Great Vibes", serif;
   --font-amiri: serif;
   --font-cairo: system-ui, sans-serif;
   --font-playfair: serif;
@@ -136,7 +137,7 @@
 [dir="rtl"] {
   --font-playfair: "Playfair", sans-serif;
   --font-inter: 'Inter', sans-serif;
-  --font-handwriting: "Dancing Script", serif;
+  --font-handwriting: "Great Vibes", serif;
   --font-amiri: 'Amiri', sans-serif;
   --font-cairo: 'Cairo', sans-serif;
 }
