@@ -1,5 +1,91 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap");
+
+/* ─── Handwritten Letter Animations ─────────────────────────────────────── */
+@keyframes inkReveal {
+  from { opacity: 0; filter: blur(3px); letter-spacing: 0.08em; }
+  to   { opacity: 1; filter: blur(0);   letter-spacing: normal; }
+}
+
+@keyframes paperFloat {
+  0%,100% { transform: rotate(-0.4deg) translateY(0); }
+  50%      { transform: rotate(0.4deg)  translateY(-4px); }
+}
+
+@keyframes inkDrop {
+  0%   { opacity: 0; transform: scaleY(0.6) translateY(-6px); }
+  60%  { opacity: 1; transform: scaleY(1.04) translateY(1px); }
+  100% { opacity: 1; transform: scaleY(1) translateY(0); }
+}
+
+.letter-paper {
+  background:
+    /* subtle ruled lines */
+    repeating-linear-gradient(
+      transparent,
+      transparent 35px,
+      rgba(139, 120, 90, 0.12) 35px,
+      rgba(139, 120, 90, 0.12) 36px
+    ),
+    /* paper grain texture */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"),
+    /* warm parchment gradient */
+    linear-gradient(160deg, #fdf6e3 0%, #f8efda 40%, #fdf0d0 100%);
+  border-radius: 4px;
+  box-shadow:
+    0 2px 0  1px #e8d8b0,
+    0 4px 0  2px #dfc89a,
+    inset 0 0 40px rgba(200, 170, 110, 0.15);
+  position: relative;
+}
+
+.letter-paper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  background: linear-gradient(90deg, rgba(180,150,100,0.08) 0 3.5%, transparent 3.5%);
+  pointer-events: none;
+}
+
+.letter-handwriting {
+  font-family: 'Dancing Script', 'Great Vibes', cursive;
+  color: #1a1a2e;
+  font-size: 1.45rem;
+  line-height: 2.18rem;          /* matches the 36px ruled-line rhythm */
+  letter-spacing: 0.02em;
+  text-shadow:
+    0 0 1px rgba(26,26,46,0.35),
+    0.5px 0.8px 2px rgba(26,26,46,0.18);
+  animation: inkReveal 0.9s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+.letter-salutation {
+  font-family: 'Dancing Script', cursive;
+  color: #3b2f1e;
+  font-size: 1.65rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 2px rgba(59,47,30,0.25);
+  animation: inkDrop 0.6s ease both;
+}
+
+.letter-signature {
+  font-family: 'Great Vibes', cursive;
+  color: #5C2533;
+  font-size: 2rem;
+  line-height: 1.2;
+  text-shadow: 0.5px 1px 3px rgba(92,37,51,0.30);
+  transform: rotate(-1.5deg);
+  display: inline-block;
+  animation: inkReveal 0.7s 0.5s ease both;
+}
+
+.letter-modal-wrap {
+  animation: paperFloat 6s ease-in-out infinite;
+  transform-origin: center top;
+}
 
 :root {
   --bg-dark: #10071f;
@@ -16,7 +102,7 @@
 
   /* Fallback aliases for components requesting old variables */
   --font-inter: system-ui, sans-serif;
-  --font-handwriting: cursive;
+  --font-handwriting: "Great Vibes";
   --font-amiri: serif;
   --font-cairo: system-ui, sans-serif;
   --font-playfair: serif;

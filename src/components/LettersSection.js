@@ -1,7 +1,33 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
+
+/** Typewriter-style reveal: streams characters from `text` at ~30 ms/char */
+const WritingAnimation = ({ text, className, style }) => {
+  const [displayed, setDisplayed] = useState("");
+  const idxRef = useRef(0);
+
+  useEffect(() => {
+    idxRef.current = 0;
+    setDisplayed("");
+    const tick = setInterval(() => {
+      idxRef.current += 1;
+      setDisplayed(text.slice(0, idxRef.current));
+      if (idxRef.current >= text.length) clearInterval(tick);
+    }, 28);
+    return () => clearInterval(tick);
+  }, [text]);
+
+  return (
+    <span className={className} style={style}>
+      {displayed}
+      {displayed.length < text.length && (
+        <span style={{ opacity: 0.6, animation: "inkDrop 0.5s ease infinite alternate" }}>|</span>
+      )}
+    </span>
+  );
+};
 
 const Particles = () => (
   <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 0, overflow: "hidden" }}>
@@ -242,87 +268,127 @@ export default function LettersSection() {
             }}
             onClick={() => setSelectedLetter(null)}
           >
+            {/* ── Letter Paper Card ── */}
             <motion.div
-              initial={{ scale: 0.9, y: 50, opacity: 0 }}
-              animate={{ scale: 1, y: 0, opacity: 1, zIndex: 9999 }}
-              exit={{ scale: 0.9, y: 20, opacity: 0 }}
-              transition={{ type: "spring", damping: 25, stiffness: 120 }}
+              className="letter-modal-wrap"
+              initial={{ scale: 0.88, y: 60, opacity: 0, rotate: -1.5 }}
+              animate={{ scale: 1,    y: 0,  opacity: 1, rotate: -0.4, zIndex: 9999 }}
+              exit={{ scale: 0.9, y: 20, opacity: 0, rotate: 1 }}
+              transition={{ type: "spring", damping: 22, stiffness: 110 }}
               style={{
                 position: "relative",
                 width: "100%",
-                maxWidth: "600px",
-                backgroundColor: "#FDFBF7",
-                borderRadius: "8px",
-                padding: "1.8rem",
-                boxShadow: "0 30px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.2)",
-                display: "flex",
-                flexDirection: "column",
-                border: "1px solid rgba(0,0,0,0.1)",
-                cursor: "default"
+                maxWidth: "620px",
+                cursor: "default",
+                /* stacked paper sheets effect */
+                filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.55))"
               }}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Close Button */}
-              <button
-                onClick={() => setSelectedLetter(null)}
-                style={{
-                  position: "absolute",
-                  top: "20px",
-                  right: lang === "ar" ? "auto" : "20px",
-                  left: lang === "ar" ? "20px" : "auto",
-                  background: "transparent",
-                  border: "none",
-                  fontSize: "1.5rem",
-                  color: "var(--wine-accent)",
-                  cursor: "pointer",
-                  width: "40px",
-                  height: "40px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderRadius: "50%",
-                  transition: "background-color 0.3s ease"
-                }}
-                onMouseOver={(e) => e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.05)"}
-                onMouseOut={(e) => e.currentTarget.style.backgroundColor = "transparent"}
-              >
-                ✕
-              </button>
-
-              <h3 style={{ fontFamily: "var(--font-playfair)", color: "#10071f", margin: "0 0 1rem 0", fontSize: "1.6rem" }}>
-                {selectedLetter.toRecipientStr}
-              </h3>
-              <p style={{
-                fontFamily: "var(--font-handwriting)",
-                color: "#2C2C2C",
-                fontSize: "1.8rem",
-                lineHeight: "1.8",
-                flex: 1,
-                marginBottom: "2rem",
-                direction: lang === "ar" ? "rtl" : "ltr"
-              }}>
-                {selectedLetter.message}
-              </p>
-              <span style={{
-                fontFamily: "var(--font-playfair)",
-                color: "var(--wine-accent)",
-                fontSize: "1.1rem",
-                alignSelf: lang === "ar" ? "flex-start" : "flex-end",
-                fontStyle: "italic"
-              }}>
-                — {selectedLetter.senderName}
-              </span>
-
-              {/* Tap outside to close hint */}
+              {/* Shadow sheets under the letter */}
               <div style={{
                 position: "absolute",
-                bottom: "-40px",
+                inset: 0,
+                background: "linear-gradient(160deg, #fdf6e3, #f0e0b8)",
+                borderRadius: "4px",
+                transform: "rotate(2deg) translateY(8px) scale(0.97)",
+                zIndex: -1,
+                opacity: 0.7
+              }} />
+              <div style={{
+                position: "absolute",
+                inset: 0,
+                background: "linear-gradient(160deg, #f8efda, #e8d4a0)",
+                borderRadius: "4px",
+                transform: "rotate(-1.5deg) translateY(4px) scale(0.985)",
+                zIndex: -2,
+                opacity: 0.55
+              }} />
+
+              {/* Main letter paper */}
+              <div
+                className="letter-paper"
+                style={{
+                  padding: "2.8rem 3rem 2.5rem",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0"
+                }}
+              >
+                {/* Close Button */}
+                <button
+                  onClick={() => setSelectedLetter(null)}
+                  style={{
+                    position: "absolute",
+                    top: "16px",
+                    right: lang === "ar" ? "auto" : "16px",
+                    left: lang === "ar" ? "16px" : "auto",
+                    background: "rgba(92,37,51,0.08)",
+                    border: "1px solid rgba(92,37,51,0.2)",
+                    fontSize: "1rem",
+                    color: "#5C2533",
+                    cursor: "pointer",
+                    width: "32px",
+                    height: "32px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: "50%",
+                    transition: "background 0.3s ease",
+                    zIndex: 10
+                  }}
+                  onMouseOver={(e) => e.currentTarget.style.background = "rgba(92,37,51,0.18)"}
+                  onMouseOut={(e)  => e.currentTarget.style.background = "rgba(92,37,51,0.08)"}
+                >
+                  ✕
+                </button>
+
+                {/* Salutation */}
+                <p className="letter-salutation" style={{ marginBottom: "0.6rem", direction: lang === "ar" ? "rtl" : "ltr" }}>
+                  {selectedLetter.toRecipientStr}
+                </p>
+
+                {/* Decorative ink divider */}
+                <div style={{
+                  width: "60px",
+                  height: "2px",
+                  background: "linear-gradient(90deg, #5C2533, transparent)",
+                  marginBottom: "1.4rem",
+                  borderRadius: "2px",
+                  alignSelf: lang === "ar" ? "flex-end" : "flex-start"
+                }} />
+
+                {/* Letter body — typewriter reveal */}
+                <WritingAnimation
+                  text={selectedLetter.message}
+                  className="letter-handwriting"
+                  style={{
+                    display: "block",
+                    marginBottom: "2.4rem",
+                    direction: lang === "ar" ? "rtl" : "ltr",
+                    textAlign: lang === "ar" ? "right" : "left",
+                    whiteSpace: "pre-wrap"
+                  }}
+                />
+
+                {/* Signature */}
+                <span
+                  className="letter-signature"
+                  style={{ alignSelf: lang === "ar" ? "flex-start" : "flex-end" }}
+                >
+                  — {selectedLetter.senderName}
+                </span>
+              </div>
+
+              {/* Tap-outside hint */}
+              <div style={{
+                position: "absolute",
+                bottom: "-38px",
                 left: "50%",
                 transform: "translateX(-50%)",
-                color: "var(--ivory-highlight)",
+                color: "rgba(253,251,247,0.65)",
                 fontFamily: "var(--font-inter)",
-                fontSize: "0.9rem",
-                opacity: 0.7,
+                fontSize: "0.82rem",
                 letterSpacing: "1px",
                 whiteSpace: "nowrap"
               }}>
