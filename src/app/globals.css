@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400..700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Offside&display=swap");
 
 /* ─── Handwritten Letter Animations ─────────────────────────────────────── */
 @keyframes inkReveal {
@@ -75,7 +75,7 @@
 }
 
 .letter-handwriting {
-  font-family: var(--font-handwriting);
+  font-family: var(--font-handwriting), cursive;
   color: #1a1a2e;
   font-size: 1.45rem;
   line-height: 2.18rem;
@@ -88,7 +88,7 @@
 }
 
 .letter-salutation {
-  font-family: 'Dancing Script', cursive;
+  font-family: 'Offside', cursive;
   color: #3b2f1e;
   font-size: 1.65rem;
   font-weight: 600;
@@ -98,7 +98,7 @@
 }
 
 .letter-signature {
-  font-family: 'Great Vibes', cursive;
+  font-family: 'Offside', cursive;
   color: #5C2533;
   font-size: 2rem;
   line-height: 1.2;
@@ -128,7 +128,7 @@
 
   /* Fallback aliases for components requesting old variables */
   --font-inter: system-ui, sans-serif;
-  --font-handwriting: "Great Vibes Fallback";
+  --font-handwriting: "Dancing Script";
   --font-amiri: serif;
   --font-cairo: system-ui, sans-serif;
   --font-playfair: serif;
@@ -137,7 +137,7 @@
 [dir="rtl"] {
   --font-playfair: "Playfair", sans-serif;
   --font-inter: 'Inter', sans-serif;
-  --font-handwriting: "Great Vibes", serif;
+  --font-handwriting: "Noto Nastaliq Urdu", serif;
   --font-amiri: 'Amiri', sans-serif;
   --font-cairo: 'Cairo', sans-serif;
 }
