@@ -127,7 +127,7 @@
 
   /* Fallback aliases for components requesting old variables */
   --font-inter: system-ui, sans-serif;
-  --font-handwriting: "Great Vibes";
+  --font-handwriting: "Dancing Script";
   --font-amiri: serif;
   --font-cairo: system-ui, sans-serif;
   --font-playfair: serif;
@@ -136,7 +136,7 @@
 [dir="rtl"] {
   --font-playfair: "Playfair", sans-serif;
   --font-inter: 'Inter', sans-serif;
-  --font-handwriting: "Great Vibes", serif;
+  --font-handwriting: "Dancing Script", serif;
   --font-amiri: 'Amiri', sans-serif;
   --font-cairo: 'Cairo', sans-serif;
 }
